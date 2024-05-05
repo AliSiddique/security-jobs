@@ -140,7 +140,6 @@ export default function JobsList({}: Props) {
         <ul className='divide-y divide-slate-100'>
           {data &&
             data.pages.map((page: any) => {
-              console.log(page);
               return (
                 <React.Fragment key={page.nextId ?? 'lastPage'}>
                   {page.posts.map((post: any) => (
@@ -165,10 +164,20 @@ export default function JobsList({}: Props) {
         </ul>
       </div>
       {isFetchingNextPage ? <JobLoading /> : null}
+            <h1 className='text-6xl'>Jobs</h1>
+            <h1 className='text-6xl'>Jobs</h1>
+            <h1 className='text-6xl'>Jobs</h1>
+            <h1 className='text-6xl'>Jobs</h1>
+            <h1 className='text-6xl'>Jobs</h1>
 
       <span style={{ visibility: 'hidden' }} ref={ref}>
         intersection observer marker
       </span>
+      <h1 className='text-6xl'>Jobs</h1>
+      <h1 className='text-6xl'>Jobs</h1>
+      <h1 className='text-6xl'>Jobs</h1>
+      <h1 className='text-6xl'>Jobs</h1>
+
     </section>
   );
 }

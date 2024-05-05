@@ -52,30 +52,24 @@ import { Switch } from './ui/switch';
 
 //   })
 const formSchema = z.object({
-  companyName: z.string().min(2, {
+  company_name: z.string().min(2, {
     message: 'Name must be at least 2 characters.',
   }),
-  companyEmail: z.string().email(),
-  companyWebsite: z.string().url(),
-  companyLinkdin: z.string().url(),
-  companySize: z.string(),
-  companyType: z.string(),
-  companyIndustry: z.string(),
-  companyLocation: z.string(),
-  companyDescription: z.string(),
-  companyLogo: z.string(),
+  company_email: z.string().email(),
+  company_website: z.string().url(),
+  company_linkedin: z.string().url(),
+  company_industry: z.string(),
+  company_description: z.string(),
   jobTitle: z.string(),
   jobType: z.string(),
   jobLocation: z.string(),
   jobDescription: z.string(),
-  jobResponsibilities: z.string(),
-  jobRequirements: z.string(),
   jobSalary: z.string(),
   color: z.string().optional(),
-  remote: z.boolean(),
-  company_logo: z.string(),
+  remote: z.boolean().default(false),
+  company_logo: z.string().optional(),
   applyLink: z.string(),
-  topics: z.array(
+  tags: z.array(
     z.object({
       id: z.string(),
       text: z.string(),
@@ -84,82 +78,81 @@ const formSchema = z.object({
 });
 
 export default function PostJob() {
-  const [color, setColor] = React.useState('');
+  // const [color, setColor] = React.useState('');
 
-  const [company_name, setCompany_name] = React.useState('Apple');
-  const [company_email, setCompany_email] = React.useState(
-    'alisiddique10@hotmail.com'
-  );
+  // const [company_name, setCompany_name] = React.useState('Apple');
+  // const [company_email, setCompany_email] = React.useState(
+  //   'alisiddique10@hotmail.com'
+  // );
 
-  const [tags, setTags] = React.useState<Tag[]>([]);
+  // const [tags, setTags] = React.useState<Tag[]>([]);
 
-  const [value, setValue] = React.useState({
-    topics: [] as Tag[],
-  });
+  // const [value, setValue] = React.useState({
+  //   topics: [] as Tag[],
+  // });
 
-  const [company_website, setCompany_website] =
-    React.useState('https://apple.com');
-  const [company_industry, setCompany_industry] = React.useState('Software');
-  const [company_description, setCompany_description] = React.useState(
-    'A great company to work for'
-  );
-  const [company_logo, setCompany_logo] = React.useState<any | null>(null);
-  const [company_linkedin, setCompany_linkedin] = React.useState(
-    'https://linkedin.com/company/apple'
-  );
-  const [job_title, setJob_title] = React.useState('Backend Developer');
-  const [job_type, setJob_type] = React.useState('Mid-level');
-  const [job_location, setJob_location] = React.useState('California, USA');
-  const [job_salary, setJob_salary] = React.useState('120,000');
-  const [job_description, setJob_description] = React.useState(
-    'Need a backend developer to work on our new project'
-  );
-  const [job_apply_link, setJob_apply_link] = React.useState(
-    'https://apple.com/jobs/1'
-  );
-  const [remote, setRemote] = React.useState(false);
-  console.log(company_logo);
+  // const [company_website, setCompany_website] =
+  //   React.useState('https://apple.com');
+  // const [company_industry, setCompany_industry] = React.useState('Software');
+  // const [company_description, setCompany_description] = React.useState(
+  //   'A great company to work for'
+  // );
+  // const [company_logo, setCompany_logo] = React.useState<any | null>(null);
+  // const [company_linkedin, setCompany_linkedin] = React.useState(
+  //   'https://linkedin.com/company/apple'
+  // );
+  // const [job_title, setJob_title] = React.useState('Backend Developer');
+  // const [job_type, setJob_type] = React.useState('Mid-level');
+  // const [job_location, setJob_location] = React.useState('California, USA');
+  // const [job_salary, setJob_salary] = React.useState('120,000');
+  // const [job_description, setJob_description] = React.useState(
+  //   'Need a backend developer to work on our new project'
+  // );
+  // const [job_apply_link, setJob_apply_link] = React.useState(
+  //   'https://apple.com/jobs/1'
+  // );
+  // console.log(company_logo);
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  // const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
 
-    const response = await fetch(`/api/post-job`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        company_name,
-        company_website,
-        company_industry,
-        company_description,
-        company_linkedin,
-        job_title,
-        job_type,
-        job_location,
-        job_salary,
-        job_description,
-        job_apply_link,
-        color,
-        company_email,
-        remote,
-        tags,
-      }),
-    });
-    // Handle response
+  //   const response = await fetch(`/api/post-job`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       company_name,
+  //       company_website,
+  //       company_industry,
+  //       company_description,
+  //       company_linkedin,
+  //       job_title,
+  //       job_type,
+  //       job_location,
+  //       job_salary,
+  //       job_description,
+  //       job_apply_link,
+  //       color,
+  //       company_email,
+  //       remote,
+  //       tags,
+  //     }),
+  //   });
+  //   // Handle response
 
-    const data = await response.json();
-    const stripePromise = await loadStripe(
-      process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
-    );
-    if (stripePromise)
-      await stripePromise.redirectToCheckout({ sessionId: data.id });
-    if (response.ok) {
-      toast.success('Job posted successfully');
-    } else {
-      toast.error('Failed to post job');
-    }
-  };
+  //   const data = await response.json();
+  //   const stripePromise = await loadStripe(
+  //     process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
+  //   );
+  //   if (stripePromise)
+  //     await stripePromise.redirectToCheckout({ sessionId: data.id });
+  //   if (response.ok) {
+  //     toast.success('Job posted successfully');
+  //   } else {
+  //     toast.error('Failed to post job');
+  //   }
+  // };
 
   // const form = useForm<z.infer<typeof formSchema>>({
   //     resolver: zodResolver(formSchema),
@@ -188,6 +181,8 @@ export default function PostJob() {
   });
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
+    const {company_name, company_website, company_industry, company_logo, company_description, company_linkedin, jobTitle, jobType, jobLocation, jobSalary, jobDescription, applyLink, color, company_email, remote, tags} = values;
     const response = await fetch(`/api/post-job`, {
       method: 'POST',
       headers: {
@@ -200,12 +195,12 @@ export default function PostJob() {
         company_industry,
         company_description,
         company_linkedin,
-        job_title,
-        job_type,
-        job_location,
-        job_salary,
-        job_description,
-        job_apply_link,
+        title:jobTitle,
+        type:jobType,
+        location:jobLocation,
+        salary:jobSalary,
+        description:jobDescription,
+        apply_link:applyLink,
         color,
         company_email,
         remote,
@@ -292,15 +287,14 @@ export default function PostJob() {
                 </p>
               </div>
               <JobEntries
-                company={form.watch('companyName')}
-                companyLogo={'https://via.placeholder.com/150'}
+                company={form.watch('company_name')}
+                companyLogo={form.watch('company_logo') ?? 'https://via.placeholder.com/150'}
                 position={form.watch('jobTitle')}
-                url={form.watch('companyWebsite')}
+                url={form.watch('company_website')}
                 type={form.watch('jobType')}
                 salary={form.watch('jobSalary')}
                 location={form.watch('jobLocation')}
                 color={form.watch('color')}
-                setColor={setColor}
                 apply_link={form.watch('applyLink')}
                 id={'2'}
                 title={form.watch('jobTitle')}
@@ -327,7 +321,7 @@ export default function PostJob() {
                           <div className='mt-2'>
                             <FormField
                               control={form.control}
-                              name='companyEmail'
+                              name='company_email'
                               render={({ field }) => (
                                 <FormItem>
                                   <FormControl>
@@ -496,7 +490,7 @@ export default function PostJob() {
                           <div className='mt-2'>
                             <FormField
                               control={form.control}
-                              name='companyName'
+                              name='company_name'
                               render={({ field }) => (
                                 <FormItem>
                                   <FormControl>
@@ -524,7 +518,7 @@ export default function PostJob() {
                           <div className='mt-2'>
                             <FormField
                               control={form.control}
-                              name='companyWebsite'
+                              name='company_website'
                               render={({ field }) => (
                                 <FormItem>
                                   <FormControl>
@@ -551,7 +545,7 @@ export default function PostJob() {
                           <div className='mt-2'>
                             <FormField
                               control={form.control}
-                              name='companyIndustry'
+                              name='company_industry'
                               render={({ field }) => (
                                 <FormItem>
                                   <FormControl>
@@ -578,7 +572,7 @@ export default function PostJob() {
                           <div className='mt-2'>
                             <FormField
                               control={form.control}
-                              name='companyLinkdin'
+                              name='company_linkedin'
                               render={({ field }) => (
                                 <FormItem>
                                   <FormControl>
@@ -605,7 +599,7 @@ export default function PostJob() {
                           <div className='mt-2'>
                             <FormField
                               control={form.control}
-                              name='companyDescription'
+                              name='company_description'
                               render={({ field }) => (
                                 <FormItem>
                                   <FormControl>
@@ -632,7 +626,34 @@ export default function PostJob() {
                           <div className='mt-2'>
                             <FormField
                               control={form.control}
-                              name='companyDescription'
+                              name='company_description'
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormControl>
+                                    <Input
+                                      placeholder='shadcn'
+                                      {...field}
+                                      className='block w-full rounded-lg border-0 py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
+                                    />
+                                  </FormControl>
+
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </div>
+                        </div>
+                        <div className='col-span-full'>
+                          <label
+                            htmlFor='applyLink'
+                            className='block text-sm font-medium leading-6 text-slate-900'
+                          >
+                            Apply Link
+                          </label>
+                          <div className='mt-2'>
+                            <FormField
+                              control={form.control}
+                              name='applyLink'
                               render={({ field }) => (
                                 <FormItem>
                                   <FormControl>
@@ -659,17 +680,17 @@ export default function PostJob() {
                           <div className='mt-2'>
                             <FormField
                               control={form.control}
-                              name='topics'
+                              name='tags'
                               render={({ field }) => (
                                 <FormItem className='flex flex-col items-start'>
                                   <FormControl>
                                     <TagInput
                                       {...field}
                                       placeholder='Enter a topic'
-                                      tags={tags}
+                                      tags={field.value as Tag[] ?? []}
                                       className='sm:min-w-[450px]'
                                       setTags={(newTags) => {
-                                        setTags(newTags);
+                                        form.setValue('tags', newTags as [Tag, ...Tag[]]);
                                         //   setValue("topics", newTags as [Tag, ...Tag[]]);
                                       }}
                                     />
@@ -710,8 +731,8 @@ export default function PostJob() {
                                   <FormLabel>Remote</FormLabel>
                                   <FormControl>
                                     <Switch
-                                      {...field}
-                                      value={field.value ? 'true' : 'false'}
+                                      checked={field.value}
+                                      onCheckedChange={field.onChange}
                                     />
                                   </FormControl>
 
@@ -729,7 +750,7 @@ export default function PostJob() {
                             </label>
                             <FormField
                               control={form.control}
-                              name='remote'
+                              name='company_logo'
                               render={({ field }) => (
                                 <FormItem>
                                   <FormControl>
@@ -741,7 +762,7 @@ export default function PostJob() {
                                         console.log('Files: ', res);
                                         //   setCompany_logo(res[0].url);
                                         form.setValue(
-                                          'companyLogo',
+                                          'company_logo',
                                           res[0].url
                                         );
                                       }}
@@ -757,13 +778,15 @@ export default function PostJob() {
                               )}
                             />
                           </div>
+  
                         </div>
                       </div>
 
                       <div className='col-span-full p-8'>
                         <Button
                           type='submit'
-                          className='inline-flex w-full items-center justify-between rounded-full bg-purple-500 px-5 py-3 text-sm leading-4 text-white duration-200 hover:bg-purple-50 hover:text-purple-500 focus:outline-none focus:ring-0 focus:ring-purple-500 focus:ring-offset-2 md:focus:ring-2'
+
+                          className='inline-flex z-50 w-full items-center justify-between rounded-full bg-purple-500 px-5 py-3 text-sm leading-4 text-white duration-200 hover:bg-purple-50 hover:text-purple-500 focus:outline-none focus:ring-0 focus:ring-purple-500 focus:ring-offset-2 md:focus:ring-2'
                         >
                           Submit <span>&rarr;</span>
                         </Button>

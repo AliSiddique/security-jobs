@@ -30,7 +30,6 @@ export default function Jobs({
   salary,
   location,
   color,
-  setColor,
   tags,
   apply_link,
   id,

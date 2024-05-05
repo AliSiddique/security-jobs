@@ -6,56 +6,18 @@ import { nanoid } from 'nanoid';
 import { db } from '../../../../prisma/db';
 
 export async function POST(req: Request) {
-  const { searchParams } = new URL(req.url);
-  const filename = searchParams.get('filename');
-  console.log(filename);
+
+ console.log(req.body);
 
   // ⚠️ The below code is for App Router Route Handlers only
   // const blob = await put(filename as any, {
   //   access: 'public',
   // });
-  if (!filename) {
-    return NextResponse.json(
-      { error: 'No filename provided' },
-      { status: 400 }
-    );
-  }
+ 
   const {
-    company_name,
-    company_logo,
-    company_website,
-    company_industry,
-    company_description,
-    company_linkedin,
-    job_title,
-    job_type,
-    job_location,
-    job_salary,
-    job_description,
-    job_apply_link,
-    company_email,
-    tags,
-    remote,
-    color,
-  } = await req.json();
+    company_name, company_website, company_industry, company_logo, company_description, company_linkedin, title, type, location, salary, description, apply_link, color, company_email, remote, tags} = await req.json();
 
-  console.log(
-    company_name,
-    company_website,
-    company_industry,
-    company_description,
-    company_linkedin,
-    job_title,
-    job_type,
-    job_location,
-    job_salary,
-    job_description,
-    job_apply_link,
-    company_email,
-    tags,
-    remote,
-    color
-  );
+
   console.log(tags.map((tag: any) => tag.text));
   const job = await db.jobPost.create({
     data: {
@@ -65,12 +27,12 @@ export async function POST(req: Request) {
       company_logo,
       department: company_industry,
       linkedin_in: company_linkedin,
-      title: job_title,
-      type: job_title,
-      location: job_location,
-      salary: parseInt(job_salary),
-      description: job_description,
-      apply_link: job_apply_link,
+      title,
+      type,
+      location,
+      salary: parseInt(salary, 10),
+      description,
+      apply_link,
       email: company_email,
       tags: tags.map((tag: any) => tag.text),
       remote,
@@ -79,12 +41,14 @@ export async function POST(req: Request) {
       featured: false,
     },
   });
+  console.log(job);
   const params: Stripe.Checkout.SessionCreateParams = {
     payment_method_types: ['card', 'paypal'],
+    customer_email: company_email,
     mode: 'payment', // Change mode to 'subscription'
     line_items: [
       {
-        price: 'price_1P0U85F6XPSRrn2m6ifMhAvZ', // Use the ID of your subscription price
+        price: process.env.STRIPE_PRICE_ID, // Use the ID of your subscription price
         quantity: 1,
       },
     ],
