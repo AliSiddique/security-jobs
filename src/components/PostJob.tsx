@@ -856,7 +856,7 @@ export default function PostJob() {
                                     <Switch
                                       {...field}
                                       value={field.value ? 'true' : 'false'}
-                                    //   className='block w-full rounded-lg border-0 py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
+                                      //   className='block w-full rounded-lg border-0 py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
                                     />
                                   </FormControl>
 
@@ -866,40 +866,41 @@ export default function PostJob() {
                             />
                           </div>
                           <div className='col-span-full'>
-                          <label
-                            htmlFor='companyDescription'
-                            className='block text-sm font-medium leading-6 text-slate-900'
-                          >
-                            Company Logo
-                          </label>
-                          <FormField
+                            <label
+                              htmlFor='companyDescription'
+                              className='block text-sm font-medium leading-6 text-slate-900'
+                            >
+                              Company Logo
+                            </label>
+                            <FormField
                               control={form.control}
                               name='remote'
                               render={({ field }) => (
                                 <FormItem>
                                   <FormControl>
-                                  <UploadButton
-                            endpoint='imageUploader'
-
-                            className='text-left'
-                            onClientUploadComplete={(res) => {
-                              // Do something with the response
-                              console.log('Files: ', res);
-                            //   setCompany_logo(res[0].url);
-                              form.setValue('companyLogo', res[0].url);
-                            }}
-                            onUploadError={(error: Error) => {
-                              // Do something with the error.
-                              alert(`ERROR! ${error.message}`);
-                            }}
-                          />
+                                    <UploadButton
+                                      endpoint='imageUploader'
+                                      className='text-left'
+                                      onClientUploadComplete={(res) => {
+                                        // Do something with the response
+                                        console.log('Files: ', res);
+                                        //   setCompany_logo(res[0].url);
+                                        form.setValue(
+                                          'companyLogo',
+                                          res[0].url
+                                        );
+                                      }}
+                                      onUploadError={(error: Error) => {
+                                        // Do something with the error.
+                                        alert(`ERROR! ${error.message}`);
+                                      }}
+                                    />
                                   </FormControl>
 
                                   <FormMessage />
                                 </FormItem>
                               )}
                             />
-                         
                           </div>
                         </div>
 
