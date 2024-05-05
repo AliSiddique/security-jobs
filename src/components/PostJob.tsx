@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { Tag, TagInput } from '@/components/ui/tag-input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import '@uploadthing/react/styles.css';
+import { draftToMarkdown } from "markdown-draft-js";
 
 import {
   Form,
@@ -29,6 +30,7 @@ import { Separator } from '@/components/ui/separator';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Switch } from './ui/switch';
+import RichTextEditor from './ui/RichTextEditor';
 // const formSchema = z.object({
 //     companyName: z.string().min(2, {
 //       message: "Name must be at least 2 characters.",
@@ -723,6 +725,7 @@ export default function PostJob() {
                                 </FormItem>
                               )}
                             />
+           
                             <FormField
                               control={form.control}
                               name='remote'
@@ -741,6 +744,27 @@ export default function PostJob() {
                               )}
                             />
                           </div>
+                          <FormField
+              control={form.control}
+              name="company_description"
+              render={({ field }) => (
+                <FormItem>
+                  <Label>
+                    Description
+                  </Label>
+                  <FormControl>
+                    <RichTextEditor
+                      onChange={(draft) =>
+                        field.onChange(draftToMarkdown(draft))
+                      }
+                      ref={field.ref}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            
                           <div className='col-span-full'>
                             <label
                               htmlFor='companyDescription'
