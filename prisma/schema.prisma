@@ -12,3 +12,27 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model JobPost {
+  id         Int   @id @default(autoincrement())
+  title      String
+  email      String
+  description String
+  department String
+  type      String
+  salary    Int
+  location  String
+  company_name String
+  company_logo String
+  company_website String
+  company_description String
+  linkedin_in String
+  apply_link String?
+  featured  Boolean  @default(false)
+  company_color String?
+  remote    Boolean?
+  color     String?
+  tags      String[] @default([])
+  created_at DateTime @default(now())
+  
+}

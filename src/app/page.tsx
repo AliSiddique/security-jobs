@@ -1,4 +1,5 @@
 import Jobs from '@/components/Jobs'
+import JobsList from '@/components/JobsList'
 import Hero from '@/components/ui/Hero'
 import React from 'react'
 
@@ -79,23 +80,7 @@ export default function page({}: Props) {
   return (
     <div className='0'>
       <Hero />
-     {jobs.map((job) => (
-        <Jobs
-          key={job.id}
-          company={job.company}
-          companyLogo={job.companyLogo}
-          position={job.position}
-          url={job.url}
-          type={job.type}
-          salary={job.salary}
-          location={job.location}
-          color={"white"}
-          tags={job.tags}
-          apply_link={job.apply_link}
-          id={job.id}
-          title={job.title}
-        />
-      ))}
+     <JobsList />
     </div>
   )
 }
