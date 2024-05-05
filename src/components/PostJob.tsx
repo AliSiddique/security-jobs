@@ -187,71 +187,47 @@ export default function PostJob() {
     resolver: zodResolver(formSchema),
   });
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const response = await fetch(`/api/post-job`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        company_name,
+        company_website,
+        company_logo,
+        company_industry,
+        company_description,
+        company_linkedin,
+        job_title,
+        job_type,
+        job_location,
+        job_salary,
+        job_description,
+        job_apply_link,
+        color,
+        company_email,
+        remote,
+        tags,
+      }),
+    });
+    // Handle response
+
     // ✅ This will be type-safe and validated.
-    console.log(values);
+    const data = await response.json();
+    const stripePromise = await loadStripe(
+      process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
+    );
+    if (stripePromise)
+      await stripePromise.redirectToCheckout({ sessionId: data.id });
+    if (response.ok) {
+      toast.success('Job posted successfully');
+    } else {
+      toast.error('Failed to post job');
+    }
   }
   return (
-    // <>
-    //   <div className="relative overflow-hidden">
-    //     <div className="container py-24 lg:py-32">
-    //       <div className="md:pe-8 md:w-1/2 xl:pe-0 xl:w-5/12">
-    //         <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-    //           Solving problems for every team
-    //         </h1>
-    //         <p className="mt-3 text-xl text-muted-foreground">
-    //           Teams use Shadcn UI to build beautiful cross-platform hybrid apps
-    //           in a fraction of the time.
-    //         </p>
-
-    //         <Form {...form}>
-    //   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-    //     <FormField
-    //       control={form.control}
-    //       name="companyName"
-    //       render={({ field }) => (
-    //         <FormItem>
-    //           <FormLabel>Company Name</FormLabel>
-    //           <FormControl>
-    //             <Input placeholder="shadcn" {...field} />
-    //           </FormControl>
-    //           <FormDescription>
-    //             This is your public display name.
-    //           </FormDescription>
-    //           <FormMessage />
-    //         </FormItem>
-    //       )}
-    //     />
-    //  <FormField
-    //   control={form.control}
-    //   name="companyEmail"
-    //   render={({ field }) => (
-    //     <FormItem>
-    //       <FormLabel>Company Email</FormLabel>
-    //       <FormControl>
-    //         <Input placeholder="shadcn" {...field} />
-    //       </FormControl>
-    //       <FormDescription>
-    //         This is your public display name.
-    //       </FormDescription>
-    //       <FormMessage />
-    //     </FormItem>
-    //   )}
-    // />
-
-    //     <Button type="submit">Submit</Button>
-    //   </form>
-    // </Form>
-    //       </div>
-    //     </div>
-    //     <img
-    //       className="hidden md:block md:absolute md:top-0 md:start-1/2 md:end-0 h-full"
-    //       src="https://placehold.co/700x800"
-    //       alt="image description"
-    //     />
-    //   </div>
-    // </>
     <div>
       <dl className='mx-auto mt-8 w-full max-w-6xl items-start gap-8 text-left text-sm lg:grid-cols-3'>
         <div className=' grid w-full grid-cols-1 gap-12 lg:grid-cols-2'>
@@ -341,23 +317,6 @@ export default function PostJob() {
                   <div>
                     <div className='grid max-w-2xl grid-cols-1 divide-y sm:grid-cols-6'>
                       <div className='col-span-full grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 p-8 sm:grid-cols-6'>
-                        {/* <div className='sm:col-span-3'>
-                      <label
-                        htmlFor='email'
-                        className='block text-sm font-medium leading-6 text-slate-900'
-                      >
-                        Job title
-                      </label>
-                      <div className='mt-2'>
-                        <input
-                          type='text'
-                          name='first-name'
-                          id='first-name'
-                          className='block w-full rounded-lg border-0 bg-white py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
-                        />
-                      </div>
-                    </div> */}
-
                         <div className='sm:col-span-full'>
                           <label
                             htmlFor='email'
@@ -383,14 +342,6 @@ export default function PostJob() {
                                 </FormItem>
                               )}
                             />
-                            {/* <input
-                          type='email'
-                          value={company_email}
-                          onChange={(event) => setCompany_email(event.target.value)}
-                          name='email'
-                          id='last-name'
-                          className='block w-full rounded-lg border-0 bg-white py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
-                        /> */}
                           </div>
                         </div>
                       </div>
@@ -421,13 +372,6 @@ export default function PostJob() {
                                 </FormItem>
                               )}
                             />
-                            {/* <input
-                          type='text'
-                          value={job_title}
-                          onChange={(event) => setJob_title(event.target.value)}
-                          name='job-title'
-                          className='block w-full rounded-lg border-0 bg-white py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
-                        /> */}
                           </div>
                         </div>
 
@@ -456,14 +400,6 @@ export default function PostJob() {
                                 </FormItem>
                               )}
                             />
-                            {/* <input
-                          type='text'
-                          name='type'
-                          id='job-type'
-                          value={job_type}
-                          onChange={(event) => setJob_type(event.target.value)}
-                          className='block w-full rounded-lg border-0 bg-white py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
-                        /> */}
                           </div>
                         </div>
                         <div className='sm:col-span-3'>
@@ -491,14 +427,6 @@ export default function PostJob() {
                                 </FormItem>
                               )}
                             />
-                            {/* <input
-                          type='text'
-                          name='location'
-                          value={job_location}
-                          onChange={(event) => setJob_location(event.target.value)}
-                          id='job-location'
-                          className='block w-full rounded-lg border-0 bg-white py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
-                        /> */}
                           </div>
                         </div>
                         <div className='sm:col-span-3'>
@@ -526,14 +454,6 @@ export default function PostJob() {
                                 </FormItem>
                               )}
                             />
-                            {/* <input
-                          type='text'
-                          value={job_salary}
-                          onChange={(event) => setJob_salary(event.target.value)}
-                          name='salary'
-                          id='job-salary'
-                          className='block w-full rounded-lg border-0 bg-white py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
-                        /> */}
                           </div>
                         </div>
                         <div className='col-span-full'>
@@ -561,14 +481,6 @@ export default function PostJob() {
                                 </FormItem>
                               )}
                             />
-                            {/* <textarea
-                          id='description'
-                          name='description'
-                          rows={3}
-                          value={job_description}
-                          onChange={(event) => setJob_description(event.target.value)}
-                          className='block w-full rounded-lg border-0 py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
-                        ></textarea> */}
                           </div>
                         </div>
                       </div>
@@ -599,14 +511,6 @@ export default function PostJob() {
                                 </FormItem>
                               )}
                             />
-                            {/* <input
-                          type='text'
-                          name='companyName'
-                          id='company-name'
-                          value={company_name}
-                          onChange={(event) => setCompany_name(event.target.value)}
-                          className='block w-full rounded-lg border-0 bg-white py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
-                        /> */}
                           </div>
                         </div>
 
@@ -635,14 +539,6 @@ export default function PostJob() {
                                 </FormItem>
                               )}
                             />
-                            {/* <input
-                          type='text'
-                          name='companyWebsite'
-                          id='company-website'
-                          value={company_website}
-                          onChange={(event) => setCompany_website(event.target.value)}
-                          className='block w-full rounded-lg border-0 bg-white py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
-                        /> */}
                           </div>
                         </div>
                         <div className='sm:col-span-3'>
@@ -670,14 +566,6 @@ export default function PostJob() {
                                 </FormItem>
                               )}
                             />
-                            {/* <input
-                          type='text'
-                          name='companyLogo'
-                          id='company-industry'
-                          value={company_industry}
-                          onChange={(event) => setCompany_industry(event.target.value)}
-                          className='block w-full rounded-lg border-0 bg-white py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
-                        /> */}
                           </div>
                         </div>
                         <div className='sm:col-span-3'>
@@ -705,15 +593,6 @@ export default function PostJob() {
                                 </FormItem>
                               )}
                             />
-                            {/* <input
-                          type='text'
-                          name='linkedin'
-                          id='linkedin'
-                          value={company_linkedin}
-                          onChange={(event) => setCompany_linkedin(event.target.value)}
-
-                          className='block w-full rounded-lg border-0 bg-white py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
-                        /> */}
                           </div>
                         </div>
                         <div className='col-span-full'>
@@ -741,14 +620,6 @@ export default function PostJob() {
                                 </FormItem>
                               )}
                             />
-                            {/* <textarea
-                          id='company-description'
-                          name='companyDescription'
-                          value={company_description}
-                          onChange={(event) => setCompany_description(event.target.value)}
-                          rows={3}
-                          className='block w-full rounded-lg border-0 py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
-                        ></textarea> */}
                           </div>
                         </div>
                         <div className='col-span-full'>
@@ -776,14 +647,6 @@ export default function PostJob() {
                                 </FormItem>
                               )}
                             />
-                            {/* <textarea
-                          id='company-description'
-                          name='companyDescription'
-                          value={company_description}
-                          onChange={(event) => setCompany_description(event.target.value)}
-                          rows={3}
-                          className='block w-full rounded-lg border-0 py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
-                        ></textarea> */}
                           </div>
                         </div>
                         <div className='col-span-full'>
@@ -819,13 +682,6 @@ export default function PostJob() {
                                 </FormItem>
                               )}
                             />
-                            {/* <input
-                          id='company-description'
-                          name='companyDescription'
-                          value={job_apply_link}
-                          onChange={(event) => setJob_apply_link(event.target.value)}
-                          className='block w-full rounded-lg border-0 py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
-                        /> */}
                           </div>
                           <div className='flex justify-between'>
                             <FormField
@@ -856,7 +712,6 @@ export default function PostJob() {
                                     <Switch
                                       {...field}
                                       value={field.value ? 'true' : 'false'}
-                                      //   className='block w-full rounded-lg border-0 py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
                                     />
                                   </FormControl>
 
@@ -903,29 +758,6 @@ export default function PostJob() {
                             />
                           </div>
                         </div>
-
-                        {/* <Switch
-    checked={remote}
-    onChange={setRemote}
-    className={classNames(
-      remote ? 'bg-indigo-600' : 'bg-gray-200',
-      'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2'
-    )}
-  >
-    <span className="sr-only">Use setting</span>
-    <span
-      aria-hidden="true"
-      className={classNames(
-        remote ? 'translate-x-5' : 'translate-x-0',
-        'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out'
-      )}
-    />
-  </Switch> */}
-                        {/* <input 
-                          type="color" 
-                          value={color} 
-                          onChange={(event) => setColor(event.target.value)} 
-                          /> */}
                       </div>
 
                       <div className='col-span-full p-8'>
