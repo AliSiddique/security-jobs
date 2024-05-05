@@ -1,71 +1,119 @@
-import * as React from "react"
+"use client"
+import React from 'react';
+import { useState } from 'react';
+import { Badge } from './ui/badge';
+import { Button } from './ui/button';
+import Link from 'next/link';
 
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+type Props = {
+  company: string;
+  companyLogo: string;
+  position: string;
+  url: string;
+  type: string;
+  salary: string;
+  location: string;
+  color?: string;
+  setColor?: React.Dispatch<React.SetStateAction<string>>;
+  tags?: string[];
+  apply_link: string;
+  id: string;
+  title: string;
+};
 
-export default function Jobs() {
+export default function Jobs({
+  company,
+  companyLogo,
+  position,
+  url,
+  type,
+  salary,
+  location,
+  color,
+  setColor,
+  tags,
+  apply_link,
+  id,
+  title,
+}: Props) {
+    
   return (
-    <Card className="w-[350px] mx-auto max-w-6xl bg-white shadow-lg rounded-lg overflow-hidden">
-    <CardContent className="flex">
-      {/* Image */}
-      <div className="flex-shrink-0">
-        <img
-          src="your_image_url"
-          alt="Project Image"
-          className="w-20 h-20 object-cover"
-        />
-      </div>
-      <div className="flex-grow p-4">
-        {/* Title */}
-        <h2 className="text-lg font-bold mb-2">Create project</h2>
-        {/* Description */}
-        <p className="text-sm text-gray-600 mb-4">
-          Deploy your new project in one-click.
-        </p>
-        {/* Form */}
-        <form className="grid grid-cols-2 gap-4">
-          <div className="flex flex-col space-y-1.5">
-            <Label htmlFor="name">Name</Label>
-            <Input id="name" placeholder="Name of your project" />
+    <div className={``}>
+      <li
+ className={`bg-[${color}] `}>
+        <div className={`group relative py-6 sm:rounded-2xl bg-[${color}]  `}>
+        <div style={{background:color}} className={`absolute -inset-x-4 -inset-y-px  opacity-100 duration-200 group-hover:opacity-100 sm:-inset-x-6 lg:-inset-x-8 ${color}`}></div>
+          <div className='relative flex items-center '>
+            <div className={` bg-[${color}]  relative h-[3.125rem] w-[3.125rem] flex-none sm:h-[3.75rem] sm:w-[3.75rem]`}>
+              <img
+                className='absolute inset-0 h-full w-full rounded-full object-cover'
+                src={companyLogo ?? "https://via.placeholder.com/150"}
+                alt=''
+              />
+              <div className='absolute inset-0 rounded-full ring-1 ring-inset ring-black/[0.08]'></div>
+            </div>
+            <dl className='ml-4 flex flex-auto flex-wrap gap-x-2 gap-y-1 overflow-hidden sm:ml-6 sm:grid sm:grid-cols-[auto_1fr_auto_auto] sm:items-center'>
+              <div className='col-span-2 mr-2.5 flex-none sm:mr-0'>
+                <dt className='sr-only'>Company</dt>
+                <dd className='text-xs font-semibold leading-6 text-slate-500'>
+                  {company} {title}
+                </dd>
+              </div>
+              <div className='col-start-3 row-start-2 -ml-2.5 flex-auto sm:ml-0 sm:pl-6'>
+                <dt className='sr-only'>Location</dt>
+                <dd className='flex items-center text-xs leading-6 text-slate-500'>
+                  <svg
+                    viewBox='0 0 2 2'
+                    aria-hidden='true'
+                    className='mr-2 h-0.5 w-0.5 flex-none fill-slate-400 sm:hidden'
+                  >
+                    <circle cx='1' cy='1' r='1'></circle>
+                  </svg>
+                  {location}
+                  <Button >
+                    <Link href={apply_link ?? ""}>
+                      Apply
+                    </Link>
+                  </Button>
+                </dd>
+              </div>
+              <div className='col-span-2 col-start-1 w-full flex-none'>
+                <dt className='sr-only'>Title</dt>
+                <dd className='text-base font-semibold leading-6 text-slate-900'>
+                  <a href={`/jobs/${id}`}>
+                    <span        
+ className={`absolute bg-[${color}] -inset-x-4 inset-y-[calc(-1*(theme(spacing.6)+1px))] sm:-inset-x-6 sm:rounded-2xl lg:-inset-x-8`}></span>
+                    {title}
+                  </a>
+                </dd>
+              </div>
+              <div className='col-start-1 mr-2.5 flex-none'>
+                <dt className='sr-only'>Type</dt>
+                <dd className='text-xs leading-6 text-slate-500'>{type}</dd>
+              </div>
+              <div className='col-span-3 -ml-2.5 flex-none'>
+                <dt className='sr-only'>Salary</dt>
+                <dd className='flex items-center text-xs leading-6 text-slate-500'>
+                  <svg
+                    viewBox='0 0 2 2'
+                    aria-hidden='true'
+                    className='mr-2 h-0.5 w-0.5 flex-none fill-slate-400'
+                  >
+                    <circle cx='1' cy='1' r='1'></circle>
+                  </svg>
+                  {salary} 
+                  {tags?.map((tag) => (
+                    <Badge key={tag} variant='secondary' >
+                      {tag}
+                    </Badge>
+                ))}
+                </dd>
+               
+              </div>
+            </dl>
           </div>
-          <div className="flex flex-col space-y-1.5">
-            <Label htmlFor="framework">Framework</Label>
-            <Select>
-              <SelectTrigger id="framework">
-                <SelectValue placeholder="Select" />
-              </SelectTrigger>
-              <SelectContent position="popper">
-                <SelectItem value="next">Next.js</SelectItem>
-                <SelectItem value="sveltekit">SvelteKit</SelectItem>
-                <SelectItem value="astro">Astro</SelectItem>
-                <SelectItem value="nuxt">Nuxt.js</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </form>
-      </div>
-    </CardContent>
-    <CardFooter className="flex justify-end bg-gray-100 px-4 py-2">
-      <Button variant="outline" className="mr-2">Cancel</Button>
-      <Button className="bg-blue-500 text-white hover:bg-blue-600">Deploy</Button>
-    </CardFooter>
-  </Card>
-  
-  )
+        </div>
+      </li>
+    </div>
+  );
 }

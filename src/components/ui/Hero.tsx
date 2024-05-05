@@ -1,4 +1,3 @@
-"use client"
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,7 +15,7 @@ export default function Hero() {
   return (
     <>
       {/* Hero */}
-      <div className="relative overflow-hidden bg-sky-600 text-white">
+      <div className="relative overflow-hidden">
         <div className="container py-24 lg:py-32">
           <div className="text-center">
             <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
@@ -26,6 +25,7 @@ export default function Hero() {
               Stay in the know with insights from industry experts.
             </p>
             <div className="mt-7 sm:mt-12 mx-auto max-w-xl relative">
+              {/* Form */}
               <form>
                 <div className="relative z-10 flex space-x-3 p-3 border bg-background rounded-lg shadow-lg">
                   <div className="flex-[1_0_0%]">
@@ -46,7 +46,8 @@ export default function Hero() {
                   </div>
                 </div>
               </form>
-         
+              {/* End Form */}
+              {/* SVG Element */}
               <div className="hidden md:block absolute top-0 end-0 -translate-y-12 translate-x-20">
                 <svg
                   className="w-16 h-auto text-orange-500"
@@ -95,6 +96,7 @@ export default function Hero() {
                   />
                 </svg>
               </div>
+              {/* End SVG Element */}
             </div>
             <div className="mt-10 sm:mt-20 flex flex-wrap gap-2 justify-center">
               <Button variant={"outline"}>
@@ -125,7 +127,7 @@ export default function Hero() {
           </div>
         </div>
       </div>
-      
+      {/* End Hero */}
     </>
   );
 }
