@@ -2,7 +2,6 @@ import Stripe from 'stripe';
 import { stripe } from '../../../lib/stripe';
 import { NextResponse } from 'next/server';
 
-import { JobPost } from '@prisma/client';
 import { nanoid } from 'nanoid';
 import { db } from '../../../../prisma/db';
 
@@ -58,7 +57,7 @@ export async function POST(req: Request) {
     color
   );
   console.log(tags.map((tag: any) => tag.text));
-  const job: JobPost = await db.jobPost.create({
+  const job = await db.jobPost.create({
     data: {
       company_name,
       company_website,
