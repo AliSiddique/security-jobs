@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import React from 'react';
 import { useState } from 'react';
 import { Badge } from './ui/badge';
@@ -36,18 +36,21 @@ export default function Jobs({
   id,
   title,
 }: Props) {
-    
   return (
     <div className={``}>
-      <li
- className={`bg-[${color}] text-gray-900 dark:text-white`}>
+      <li className={`bg-[${color}] text-gray-900 dark:text-white`}>
         <div className={`group relative py-6 sm:rounded-2xl bg-[${color}]  `}>
-        <div style={{background:color}} className={`absolute -inset-x-4 -inset-y-px  opacity-100 duration-200 group-hover:opacity-100 sm:-inset-x-6 lg:-inset-x-8 ${color}`}></div>
+          <div
+            style={{ background: color }}
+            className={`absolute -inset-x-4 -inset-y-px  opacity-100 duration-200 group-hover:opacity-100 sm:-inset-x-6 lg:-inset-x-8 ${color}`}
+          ></div>
           <div className='relative flex items-center '>
-            <div className={` bg-[${color}]  relative h-[3.125rem] w-[3.125rem] flex-none sm:h-[3.75rem] sm:w-[3.75rem]`}>
+            <div
+              className={` bg-[${color}]  relative h-[3.125rem] w-[3.125rem] flex-none sm:h-[3.75rem] sm:w-[3.75rem]`}
+            >
               <img
                 className='absolute inset-0 h-full w-full rounded-full object-cover'
-                src={companyLogo ?? "https://via.placeholder.com/150"}
+                src={companyLogo ?? 'https://via.placeholder.com/150'}
                 alt=''
               />
               <div className='absolute inset-0 rounded-full ring-1 ring-inset ring-black/[0.08]'></div>
@@ -70,10 +73,8 @@ export default function Jobs({
                     <circle cx='1' cy='1' r='1'></circle>
                   </svg>
                   {location}
-                  <Button >
-                    <Link href={apply_link ?? ""}>
-                      Apply
-                    </Link>
+                  <Button>
+                    <Link href={apply_link ?? ''}>Apply</Link>
                   </Button>
                 </dd>
               </div>
@@ -81,8 +82,9 @@ export default function Jobs({
                 <dt className='sr-only'>Title</dt>
                 <dd className='text-base font-semibold leading-6 text-slate-900'>
                   <a href={`/jobs/${id}`}>
-                    <span        
- className={`absolute bg-[${color}] -inset-x-4 inset-y-[calc(-1*(theme(spacing.6)+1px))] sm:-inset-x-6 sm:rounded-2xl lg:-inset-x-8`}></span>
+                    <span
+                      className={`absolute bg-[${color}] -inset-x-4 inset-y-[calc(-1*(theme(spacing.6)+1px))] sm:-inset-x-6 sm:rounded-2xl lg:-inset-x-8`}
+                    ></span>
                     {title}
                   </a>
                 </dd>
@@ -101,14 +103,13 @@ export default function Jobs({
                   >
                     <circle cx='1' cy='1' r='1'></circle>
                   </svg>
-                  {salary} 
+                  {salary}
                   {tags?.map((tag) => (
-                    <Badge key={tag} variant='secondary' >
+                    <Badge key={tag} variant='secondary'>
                       {tag}
                     </Badge>
-                ))}
+                  ))}
                 </dd>
-               
               </div>
             </dl>
           </div>

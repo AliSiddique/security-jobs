@@ -1,10 +1,10 @@
-"use client"
+'use client';
 import React from 'react';
 import JobEntries from './Jobs';
 import { useEffect } from 'react';
-import { useInfiniteQuery } from '@tanstack/react-query'
-import axios from 'axios'
-import { useInView } from 'react-intersection-observer'
+import { useInfiniteQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import { useInView } from 'react-intersection-observer';
 import { Skeleton } from './ui/skeleton';
 import JobLoading from './JobLoading';
 
@@ -92,38 +92,40 @@ let allPosts = [
 ];
 
 export default function JobsList({}: Props) {
+  const { ref, inView } = useInView();
 
-  const { ref, inView } = useInView()
+  const {
+    isLoading,
+    isError,
+    data,
+    error,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteQuery({
+    queryKey: ['posts'],
+    queryFn: async ({ pageParam = '' }) => {
+      const res = await axios.get('/api/get-jobs?cursor=' + pageParam);
+      console.log(res.data);
+      return res.data;
+    },
 
-  const { isLoading, isError, data, error, isFetchingNextPage, fetchNextPage, hasNextPage } =
-    useInfiniteQuery({
-      queryKey: ['posts'],
-      queryFn: async ({ pageParam = '' }) => {
-        const res = await axios.get('/api/get-jobs?cursor=' + pageParam)
-        console.log(res.data)
-        return res.data
-      },
-  
-      initialPageParam: 1,
-      getNextPageParam: (lastPage) => lastPage.nextId ?? undefined,
-
-      
-    })
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => lastPage.nextId ?? undefined,
+  });
 
   useEffect(() => {
     if (inView && hasNextPage) {
-      fetchNextPage()
+      fetchNextPage();
     }
-  }, [inView])
+  }, [inView]);
 
-  if (isLoading) return (
-   <JobLoading />
-  )
-  if (isError) return <div>Error! {JSON.stringify(error)}</div>
-  
+  if (isLoading) return <JobLoading />;
+  if (isError) return <div>Error! {JSON.stringify(error)}</div>;
+
   return (
     <section>
-   <div className='mx-auto max-w-6xl px-8 py-12 md:px-32'>
+      <div className='mx-auto max-w-6xl px-8 py-12 md:px-32'>
         <div className='gird-cols-1 grid gap-2 border-b border-gray-200 pb-5 lg:grid-cols-2'>
           <h3 className='text-lg font-semibold leading-6 text-slate-900 lg:text-xl'>
             Latest jobs
@@ -136,34 +138,33 @@ export default function JobsList({}: Props) {
         </div>
 
         <ul className='divide-y divide-slate-100'>
-        {data &&
-        data.pages.map((page:any) => {
-          console.log(page)
-          return (
-            <React.Fragment key={page.nextId ?? 'lastPage'}>
-              {page.posts.map((post: any) => (
-               <JobEntries
-               url={'/companies/' + post.slug}
-               type={post.type}
-               salary={post.salary}
-               location={post.location}
-               company={post.company_name}
-               position={post.position}
-               companyLogo={post.company_logo}
-               color={post.color}
-                tags={post.tags}
-                apply_link={post.apply_link}
-                id={post.id}
-                title={post.title}
-             />
-              ))}
-            </React.Fragment>
-          )
-        })}
-    
+          {data &&
+            data.pages.map((page: any) => {
+              console.log(page);
+              return (
+                <React.Fragment key={page.nextId ?? 'lastPage'}>
+                  {page.posts.map((post: any) => (
+                    <JobEntries
+                      url={'/companies/' + post.slug}
+                      type={post.type}
+                      salary={post.salary}
+                      location={post.location}
+                      company={post.company_name}
+                      position={post.position}
+                      companyLogo={post.company_logo}
+                      color={post.color}
+                      tags={post.tags}
+                      apply_link={post.apply_link}
+                      id={post.id}
+                      title={post.title}
+                    />
+                  ))}
+                </React.Fragment>
+              );
+            })}
         </ul>
       </div>
-      {isFetchingNextPage ? <JobLoading/> : null}
+      {isFetchingNextPage ? <JobLoading /> : null}
 
       <span style={{ visibility: 'hidden' }} ref={ref}>
         intersection observer marker

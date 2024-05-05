@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 import {
   Command,
   CommandList,
   CommandItem,
   CommandGroup,
   CommandEmpty,
-} from "@/components/ui/command";
-import { type Tag as TagType } from "./tag-input";
+} from '@/components/ui/command';
+import { type Tag as TagType } from './tag-input';
 
 type AutocompleteProps = {
   tags: TagType[];
@@ -28,11 +28,11 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
   children,
 }) => {
   return (
-    <Command className="border">
+    <Command className='border'>
       {children}
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
-        <CommandGroup heading="Suggestions">
+        <CommandGroup heading='Suggestions'>
           {autocompleteOptions.map((option) => (
             <CommandItem key={option.id}>
               <div

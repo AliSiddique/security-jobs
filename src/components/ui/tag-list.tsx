@@ -1,18 +1,18 @@
-import React from "react";
-import { type Tag as TagType } from "./tag-input";
-import { Tag, TagProps } from "./tag";
-import { cn } from "@/lib/utils";
-import SortableList, { SortableItem } from "react-easy-sort";
+import React from 'react';
+import { type Tag as TagType } from './tag-input';
+import { Tag, TagProps } from './tag';
+import { cn } from '@/lib/utils';
+import SortableList, { SortableItem } from 'react-easy-sort';
 
 export type TagListProps = {
   tags: TagType[];
   customTagRenderer?: (tag: TagType) => React.ReactNode;
-  direction?: TagProps["direction"];
+  direction?: TagProps['direction'];
   onSortEnd: (oldIndex: number, newIndex: number) => void;
-} & Omit<TagProps, "tagObj">;
+} & Omit<TagProps, 'tagObj'>;
 
 const DropTarget: React.FC = () => {
-  return <div className={cn("h-full rounded-md bg-secondary/50")} />;
+  return <div className={cn('h-full rounded-md bg-secondary/50')} />;
 };
 
 export const TagList: React.FC<TagListProps> = ({
@@ -35,15 +35,15 @@ export const TagList: React.FC<TagListProps> = ({
 
   return (
     <div
-      className={cn("rounded-md max-w-[450px]", {
-        "flex flex-wrap gap-2": direction === "row",
-        "flex flex-col gap-2": direction === "column",
+      className={cn('max-w-[450px] rounded-md', {
+        'flex flex-wrap gap-2': direction === 'row',
+        'flex flex-col gap-2': direction === 'column',
       })}
     >
       {draggable ? (
         <SortableList
           onSortEnd={onSortEnd}
-          className="flex flex-wrap gap-2 list"
+          className='list flex flex-wrap gap-2'
           dropTarget={<DropTarget />}
         >
           {tags.map((tagObj) => (
@@ -53,10 +53,10 @@ export const TagList: React.FC<TagListProps> = ({
                 onMouseLeave={handleMouseUp}
                 className={cn(
                   {
-                    "border border-solid border-primary rounded-md":
+                    'rounded-md border border-solid border-primary':
                       draggedTagId === tagObj.id,
                   },
-                  "transition-all duration-200 ease-in-out"
+                  'transition-all duration-200 ease-in-out'
                 )}
               >
                 {customTagRenderer ? (

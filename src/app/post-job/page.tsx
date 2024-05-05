@@ -1,12 +1,12 @@
-import PostJob from '@/components/PostJob'
-import React from 'react'
+import PostJob from '@/components/PostJob';
+import React from 'react';
 
-type Props = {}
+type Props = {};
 
 export default function page({}: Props) {
   return (
     <div>
       <PostJob />
     </div>
-  )
+  );
 }

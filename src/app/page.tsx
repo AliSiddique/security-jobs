@@ -1,9 +1,9 @@
-import Jobs from '@/components/Jobs'
-import JobsList from '@/components/JobsList'
-import Hero from '@/components/ui/Hero'
-import React from 'react'
+import Jobs from '@/components/Jobs';
+import JobsList from '@/components/JobsList';
+import Hero from '@/components/ui/Hero';
+import React from 'react';
 
-type Props = {}
+type Props = {};
 let jobs = [
   {
     company: 'Google',
@@ -72,15 +72,15 @@ let jobs = [
     color: 'bg-blue-500',
     tags: ['Remote', 'Full-time'],
     apply_link: 'https://apple.com',
-    id : '5',
+    id: '5',
     title: 'Software Engineer',
   },
-]
+];
 export default function page({}: Props) {
   return (
     <div className='0'>
       <Hero />
-     <JobsList />
+      <JobsList />
     </div>
-  )
+  );
 }

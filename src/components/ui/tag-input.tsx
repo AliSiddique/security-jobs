@@ -1,26 +1,26 @@
-"use client";
+'use client';
 
-import React from "react";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { type VariantProps } from "class-variance-authority";
-import { CommandInput } from "./command";
-import { toast } from "./use-toast";
-import { v4 as uuid } from "uuid";
-import { TagPopover } from "./tag-popover";
-import { TagList } from "./tag-list";
-import { tagVariants } from "./tag";
-import { Autocomplete } from "./autocomplete";
+import React from 'react';
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
+import { type VariantProps } from 'class-variance-authority';
+import { CommandInput } from './command';
+import { toast } from './use-toast';
+import { v4 as uuid } from 'uuid';
+import { TagPopover } from './tag-popover';
+import { TagList } from './tag-list';
+import { tagVariants } from './tag';
+import { Autocomplete } from './autocomplete';
 
 export enum Delimiter {
-  Comma = ",",
-  Enter = "Enter",
-  Space = " ",
+  Comma = ',',
+  Enter = 'Enter',
+  Space = ' ',
 }
 
 type OmittedInputProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
-  "size" | "value"
+  'size' | 'value'
 >;
 
 export type Tag = {
@@ -55,14 +55,14 @@ export interface TagInputProps
   usePopoverForTags?: boolean;
   value?: string | number | readonly string[] | { id: string; text: string }[];
   autocompleteFilter?: (option: string) => boolean;
-  direction?: "row" | "column";
+  direction?: 'row' | 'column';
   onInputChange?: (value: string) => void;
   customTagRenderer?: (tag: Tag) => React.ReactNode;
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   onTagClick?: (tag: Tag) => void;
   draggable?: boolean;
-  inputFieldPostion?: "bottom" | "top" | "inline";
+  inputFieldPostion?: 'bottom' | 'top' | 'inline';
   clearAll?: boolean;
   onClearAll?: () => void;
   inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
@@ -89,7 +89,7 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
       allowDuplicates,
       showCount,
       validateTag,
-      placeholderWhenFull = "Max tags reached",
+      placeholderWhenFull = 'Max tags reached',
       sortTags,
       delimiterList,
       truncate,
@@ -101,14 +101,14 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
       textStyle,
       minLength,
       maxLength,
-      direction = "row",
+      direction = 'row',
       onInputChange,
       customTagRenderer,
       onFocus,
       onBlur,
       onTagClick,
       draggable = false,
-      inputFieldPostion = "bottom",
+      inputFieldPostion = 'bottom',
       clearAll = false,
       onClearAll,
       usePopoverForTags = false,
@@ -116,7 +116,7 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
       restrictTagsToAutocompleteOptions = false,
     } = props;
 
-    const [inputValue, setInputValue] = React.useState("");
+    const [inputValue, setInputValue] = React.useState('');
     const [tagCount, setTagCount] = React.useState(Math.max(0, tags.length));
     const inputRef = React.useRef<HTMLInputElement>(null);
     const [draggedTagId, setDraggedTagId] = React.useState<string | null>(null);
@@ -125,12 +125,12 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
       (maxTags !== undefined && maxTags < 0) ||
       (props.minTags !== undefined && props.minTags < 0)
     ) {
-      console.warn("maxTags and minTags cannot be less than 0");
+      console.warn('maxTags and minTags cannot be less than 0');
       toast({
-        title: "maxTags and minTags cannot be less than 0",
+        title: 'maxTags and minTags cannot be less than 0',
         description:
-          "Please set maxTags and minTags to a value greater than or equal to 0",
-        variant: "destructive",
+          'Please set maxTags and minTags to a value greater than or equal to 0',
+        variant: 'destructive',
       });
       return null;
     }
@@ -156,9 +156,9 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
           !autocompleteOptions?.some((option) => option.text === newTagText)
         ) {
           toast({
-            title: "Invalid Tag",
-            description: "Please select a tag from the autocomplete options.",
-            variant: "destructive",
+            title: 'Invalid Tag',
+            description: 'Please select a tag from the autocomplete options.',
+            variant: 'destructive',
           });
           return;
         }
@@ -168,11 +168,11 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
         }
 
         if (minLength && newTagText.length < minLength) {
-          console.warn("Tag is too short");
+          console.warn('Tag is too short');
           toast({
-            title: "Tag is too short",
-            description: "Please enter a tag with more characters",
-            variant: "destructive",
+            title: 'Tag is too short',
+            description: 'Please enter a tag with more characters',
+            variant: 'destructive',
           });
           return;
         }
@@ -180,11 +180,11 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
         // Validate maxLength
         if (maxLength && newTagText.length > maxLength) {
           toast({
-            title: "Tag is too long",
-            description: "Please enter a tag with less characters",
-            variant: "destructive",
+            title: 'Tag is too long',
+            description: 'Please enter a tag with less characters',
+            variant: 'destructive',
           });
-          console.warn("Tag is too long");
+          console.warn('Tag is too long');
           return;
         }
 
@@ -199,13 +199,13 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
           onTagAdd?.(newTagText);
           setTagCount((prevTagCount) => prevTagCount + 1);
         }
-        setInputValue("");
+        setInputValue('');
       }
     };
 
     const removeTag = (idToRemove: string) => {
       setTags(tags.filter((tag) => tag.id !== idToRemove));
-      onTagRemove?.(tags.find((tag) => tag.id === idToRemove)?.text || "");
+      onTagRemove?.(tags.find((tag) => tag.id === idToRemove)?.text || '');
       setTagCount((prevTagCount) => prevTagCount - 1);
     };
 
@@ -241,12 +241,12 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
 
     return (
       <div
-        className={`w-full flex gap-3 ${
-          inputFieldPostion === "bottom"
-            ? "flex-col"
-            : inputFieldPostion === "top"
-            ? "flex-col-reverse"
-            : "flex-row"
+        className={`flex w-full gap-3 ${
+          inputFieldPostion === 'bottom'
+            ? 'flex-col'
+            : inputFieldPostion === 'top'
+              ? 'flex-col-reverse'
+              : 'flex-row'
         }`}
       >
         {!usePopoverForTags ? (
@@ -269,7 +269,7 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
           />
         ) : null}
         {enableAutocomplete ? (
-          <div className="w-full max-w-[450px]">
+          <div className='w-full max-w-[450px]'>
             <Autocomplete
               tags={tags}
               setTags={setTags}
@@ -292,7 +292,7 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
                   onKeyDown={handleKeyDown}
                   onFocus={onFocus}
                   onBlur={onBlur}
-                  className="w-full"
+                  className='w-full'
                 />
               ) : (
                 <TagPopover
@@ -325,19 +325,19 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
                     onKeyDown={handleKeyDown}
                     onFocus={onFocus}
                     onBlur={onBlur}
-                    className="w-full"
+                    className='w-full'
                   />
                 </TagPopover>
               )}
             </Autocomplete>
           </div>
         ) : (
-          <div className="w-full">
+          <div className='w-full'>
             {!usePopoverForTags ? (
               <Input
                 ref={inputRef}
                 id={id}
-                type="text"
+                type='text'
                 placeholder={
                   maxTags !== undefined && tags.length >= maxTags
                     ? placeholderWhenFull
@@ -350,8 +350,8 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
                 onBlur={onBlur}
                 {...inputProps}
                 className={className}
-                autoComplete={enableAutocomplete ? "on" : "off"}
-                list={enableAutocomplete ? "autocomplete-options" : undefined}
+                autoComplete={enableAutocomplete ? 'on' : 'off'}
+                list={enableAutocomplete ? 'autocomplete-options' : undefined}
                 disabled={maxTags !== undefined && tags.length >= maxTags}
               />
             ) : (
@@ -375,7 +375,7 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
                 <Input
                   ref={inputRef}
                   id={id}
-                  type="text"
+                  type='text'
                   placeholder={
                     maxTags !== undefined && tags.length >= maxTags
                       ? placeholderWhenFull
@@ -388,8 +388,8 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
                   onBlur={onBlur}
                   {...inputProps}
                   className={className}
-                  autoComplete={enableAutocomplete ? "on" : "off"}
-                  list={enableAutocomplete ? "autocomplete-options" : undefined}
+                  autoComplete={enableAutocomplete ? 'on' : 'off'}
+                  list={enableAutocomplete ? 'autocomplete-options' : undefined}
                   disabled={maxTags !== undefined && tags.length >= maxTags}
                 />
               </TagPopover>
@@ -397,14 +397,14 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
           </div>
         )}
         {showCount && maxTags && (
-          <div className="flex">
-            <span className="text-muted-foreground text-sm mt-1 ml-auto">
+          <div className='flex'>
+            <span className='ml-auto mt-1 text-sm text-muted-foreground'>
               {`${tagCount}`}/{`${maxTags}`}
             </span>
           </div>
         )}
         {clearAll && (
-          <Button type="button" onClick={handleClearAll} className="mt-2">
+          <Button type='button' onClick={handleClearAll} className='mt-2'>
             Clear All
           </Button>
         )}
@@ -413,6 +413,6 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
   }
 );
 
-TagInput.displayName = "TagInput";
+TagInput.displayName = 'TagInput';
 
 export { TagInput };
