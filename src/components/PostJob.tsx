@@ -453,30 +453,28 @@ export default function PostJob() {
                           </div>
                         </div>
                         <div className='col-span-full'>
-                          <label
-                            htmlFor='description'
-                            className='block text-sm font-medium leading-6 text-slate-900'
-                          >
-                            Description
-                          </label>
+     
                           <div className='mt-2'>
-                            <FormField
-                              control={form.control}
-                              name='jobDescription'
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormControl>
-                                    <Input
-                                      placeholder='shadcn'
-                                      {...field}
-                                      className='block w-full rounded-lg border-0 py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
-                                    />
-                                  </FormControl>
-
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
+                          <FormField
+              control={form.control}
+              name="jobDescription"
+              render={({ field }) => (
+                <FormItem>
+                  <Label>
+                  Job Description
+                  </Label>
+                  <FormControl>
+                    <RichTextEditor
+                      onChange={(draft) =>
+                        field.onChange(draftToMarkdown(draft))
+                      }
+                      ref={field.ref}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
                           </div>
                         </div>
                       </div>
@@ -592,59 +590,31 @@ export default function PostJob() {
                           </div>
                         </div>
                         <div className='col-span-full'>
-                          <label
-                            htmlFor='companyDescription'
-                            className='block text-sm font-medium leading-6 text-slate-900'
-                          >
-                            Company Description
-                          </label>
+          
                           <div className='mt-2'>
-                            <FormField
-                              control={form.control}
-                              name='company_description'
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormControl>
-                                    <Input
-                                      placeholder='shadcn'
-                                      {...field}
-                                      className='block w-full rounded-lg border-0 py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
-                                    />
-                                  </FormControl>
-
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
+                          <FormField
+              control={form.control}
+              name="company_description"
+              render={({ field }) => (
+                <FormItem>
+                  <Label>
+                  Company Description
+                  </Label>
+                  <FormControl>
+                    <RichTextEditor
+                      onChange={(draft) =>
+                        field.onChange(draftToMarkdown(draft))
+                      }
+                      ref={field.ref}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
                           </div>
                         </div>
-                        <div className='col-span-full'>
-                          <label
-                            htmlFor='companyDescription'
-                            className='block text-sm font-medium leading-6 text-slate-900'
-                          >
-                            Company Description
-                          </label>
-                          <div className='mt-2'>
-                            <FormField
-                              control={form.control}
-                              name='company_description'
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormControl>
-                                    <Input
-                                      placeholder='shadcn'
-                                      {...field}
-                                      className='block w-full rounded-lg border-0 py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
-                                    />
-                                  </FormControl>
-
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                          </div>
-                        </div>
+  
                         <div className='col-span-full'>
                           <label
                             htmlFor='applyLink'
@@ -744,26 +714,7 @@ export default function PostJob() {
                               )}
                             />
                           </div>
-                          <FormField
-              control={form.control}
-              name="company_description"
-              render={({ field }) => (
-                <FormItem>
-                  <Label>
-                    Description
-                  </Label>
-                  <FormControl>
-                    <RichTextEditor
-                      onChange={(draft) =>
-                        field.onChange(draftToMarkdown(draft))
-                      }
-                      ref={field.ref}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                 
             
                           <div className='col-span-full'>
                             <label
