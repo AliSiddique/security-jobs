@@ -6,17 +6,31 @@ import { nanoid } from 'nanoid';
 import { db } from '../../../../prisma/db';
 
 export async function POST(req: Request) {
-
- console.log(req.body);
+  console.log(req.body);
 
   // ⚠️ The below code is for App Router Route Handlers only
   // const blob = await put(filename as any, {
   //   access: 'public',
   // });
- 
-  const {
-    company_name, company_website, company_industry, company_logo, company_description, company_linkedin, title, type, location, salary, description, apply_link, color, company_email, remote, tags} = await req.json();
 
+  const {
+    company_name,
+    company_website,
+    company_industry,
+    company_logo,
+    company_description,
+    company_linkedin,
+    title,
+    type,
+    location,
+    salary,
+    description,
+    apply_link,
+    color,
+    company_email,
+    remote,
+    tags,
+  } = await req.json();
 
   console.log(tags.map((tag: any) => tag.text));
   const job = await db.jobPost.create({

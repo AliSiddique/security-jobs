@@ -230,17 +230,18 @@ export default function PostJob() {
         <div className=' grid w-full grid-cols-1 gap-12 lg:grid-cols-2'>
           <div>
             <div className='lg:col-span-full'>
-              <p className='text-xl font-normal tracking-tighter text-black lg:text-2xl'>
-                Find your next candidate
+              <p className='text-xl tracking-tighter text-black lg:text-2xl'>
+                Post a job
               </p>
 
               <p className='mt-4 text-base text-slate-500'>
-                Unlock a vast array of exceptional talent and propel your
-                company's success to new heights of achievement.
+                Fill in the details below to post a job on our platform. Once
+                you&apos;ve submitted the form, you&apos;ll be redirected to
+                complete the payment process.
               </p>
             </div>
             <div className='mt-12 grid grid-cols-1 gap-4'>
-              <div className=' rounded-3xl border p-8 shadow-2xl shadow-slate-500/10 '>
+              {/* <div className=' rounded-3xl border p-8 shadow-2xl shadow-slate-500/10 '>
                 <div className='gap-3 lg:inline-flex lg:items-center'>
                   <div className='flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-tr from-purple-700 via-purple-500 to-purple-300 text-white'>
                     1
@@ -255,8 +256,8 @@ export default function PostJob() {
                   their name, contact information, and any specific
                   requirements.
                 </p>
-              </div>
-              <div className=' rounded-3xl border p-8 shadow-2xl shadow-slate-500/10 '>
+              </div> */}
+              {/* <div className=' rounded-3xl border p-8 shadow-2xl shadow-slate-500/10 '>
                 <div className='gap-3 lg:inline-flex lg:items-center'>
                   <div className='flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-tr from-purple-700 via-purple-500 to-purple-300 text-white'>
                     1
@@ -271,8 +272,8 @@ export default function PostJob() {
                   as the job title, description, requirements or
                   responsibilities.
                 </p>
-              </div>
-              <div className=' rounded-3xl border p-8 shadow-2xl shadow-slate-500/10 '>
+              </div> */}
+              {/* <div className=' rounded-3xl border p-8 shadow-2xl shadow-slate-500/10 '>
                 <div className='gap-3 lg:inline-flex lg:items-center'>
                   <div className='flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-tr from-purple-700 via-purple-500 to-purple-300 text-white'>
                     3
@@ -287,7 +288,7 @@ export default function PostJob() {
                   job, including the company name, industry, location, website,
                   size, culture.
                 </p>
-              </div>
+              </div> */}
               <JobEntries
                 company={form.watch('company_name')}
                 companyLogo={form.watch('company_logo') ?? 'https://via.placeholder.com/150'}
@@ -676,18 +677,24 @@ export default function PostJob() {
                               )}
                             />
                           </div>
-                          <div className='flex justify-between'>
+                          <div className='col-span-full grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 pt-8 sm:grid-cols-6'>
+                          <div className='sm:col-span-3'>
+                          <label
+                            htmlFor='color'
+                            className='block text-sm font-medium leading-6 text-slate-900'
+                          >
+                            Company Color
+                          </label>
                             <FormField
                               control={form.control}
                               name='color'
                               render={({ field }) => (
                                 <FormItem>
-                                  <FormLabel>Color</FormLabel>
                                   <FormControl>
                                     <Input
                                       type='color'
                                       {...field}
-                                      className='block w-full rounded-lg border-0 py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
+                                      className='block w-full rounded-lg border-0 bg-white py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
                                     />
                                   </FormControl>
 
@@ -695,15 +702,22 @@ export default function PostJob() {
                                 </FormItem>
                               )}
                             />
-           
+                          </div>
+                          <div className='sm:col-span-3 '>
+                          <label
+                            htmlFor='remote'
+                            className='block text-sm font-medium leading-6 text-slate-900'
+                          >
+                            Remote 
+                          </label>
                             <FormField
                               control={form.control}
                               name='remote'
                               render={({ field }) => (
                                 <FormItem>
-                                  <FormLabel>Remote</FormLabel>
                                   <FormControl>
                                     <Switch
+                                    
                                       checked={field.value}
                                       onCheckedChange={field.onChange}
                                     />
@@ -713,16 +727,18 @@ export default function PostJob() {
                                 </FormItem>
                               )}
                             />
+                            </div>
                           </div>
                  
             
-                          <div className='col-span-full'>
+                          <div className='col-span-full pt-3 items-start justify-start'>
                             <label
                               htmlFor='companyDescription'
                               className='block text-sm font-medium leading-6 text-slate-900'
                             >
                               Company Logo
                             </label>
+                            <div className='col-span-1 mt-2'>
                             <FormField
                               control={form.control}
                               name='company_logo'
@@ -731,7 +747,7 @@ export default function PostJob() {
                                   <FormControl>
                                     <UploadButton
                                       endpoint='imageUploader'
-                                      className='text-left'
+                                      className='block text-sm font-medium leading-6 text-slate-900'
                                       onClientUploadComplete={(res) => {
                                         // Do something with the response
                                         console.log('Files: ', res);
@@ -752,6 +768,7 @@ export default function PostJob() {
                                 </FormItem>
                               )}
                             />
+                            </div>
                           </div>
   
                         </div>
@@ -761,7 +778,7 @@ export default function PostJob() {
                         <Button
                           type='submit'
 
-                          className='inline-flex z-50 w-full items-center justify-between rounded-full bg-purple-500 px-5 py-3 text-sm leading-4 text-white duration-200 hover:bg-purple-50 hover:text-purple-500 focus:outline-none focus:ring-0 focus:ring-purple-500 focus:ring-offset-2 md:focus:ring-2'
+                          className='inline-flex z-50 w-full items-center justify-center rounded-full  px-5 py-3 text-sm text-center text-white duration-200 hover:bg-purple-50 hover:text-purple-500 focus:outline-none focus:ring-0 focus:ring-purple-500 focus:ring-offset-2 md:focus:ring-2'
                         >
                           Submit <span>&rarr;</span>
                         </Button>

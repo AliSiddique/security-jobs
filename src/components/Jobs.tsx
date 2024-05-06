@@ -71,7 +71,7 @@ export default function Jobs({
                   >
                     <circle cx='1' cy='1' r='1'></circle>
                   </svg>
-                  {location}
+                  {location }
                   <Button>
                     <Link href={apply_link ?? ''}>Apply</Link>
                   </Button>
