@@ -72,7 +72,7 @@ export default async function page({ params }: Props) {
                     </p>
                 </li>
             </ul>
-          <div className='prose-a:text-accent-500 prose-li:marker:text-accent-500 prose prose-headings:font-semibold prose-headings:text-slate-900 hover:prose-a:text-slate-900 prose-blockquote:border-l-black prose-blockquote:text-slate-500 prose-code:text-slate-900 prose-pre:border text-slate-500'>
+          <div className=''>
             <main>
               <section>
                 <h2 className='text-2xl font-semibold tracking-tight text-slate-900'>
