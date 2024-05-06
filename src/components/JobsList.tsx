@@ -164,19 +164,10 @@ export default function JobsList({}: Props) {
         </ul>
       </div>
       {isFetchingNextPage ? <JobLoading /> : null}
-      <h1 className='text-6xl'>Jobs</h1>
-      <h1 className='text-6xl'>Jobs</h1>
-      <h1 className='text-6xl'>Jobs</h1>
-      <h1 className='text-6xl'>Jobs</h1>
-      <h1 className='text-6xl'>Jobs</h1>
-
       <span style={{ visibility: 'hidden' }} ref={ref}>
         intersection observer marker
       </span>
-      <h1 className='text-6xl'>Jobs</h1>
-      <h1 className='text-6xl'>Jobs</h1>
-      <h1 className='text-6xl'>Jobs</h1>
-      <h1 className='text-6xl'>Jobs</h1>
+    
     </section>
   );
 }

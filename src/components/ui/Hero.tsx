@@ -10,6 +10,7 @@ import {
   SearchIcon,
   SettingsIcon,
 } from 'lucide-react';
+import Link from 'next/link';
 
 export default function Hero() {
   return (
@@ -99,29 +100,41 @@ export default function Hero() {
               {/* End SVG Element */}
             </div>
             <div className='mt-10 flex flex-wrap justify-center gap-2 sm:mt-20'>
-              <Button variant={'outline'}>
+              <Button asChild variant={'outline'}>
+                <Link href='/tags/docker'>
                 <BriefcaseIcon className='mr-2 h-auto w-3 flex-shrink-0' />
-                Business
+                Docker
+                </Link>
               </Button>
-              <Button variant={'outline'}>
-                <SettingsIcon className='mr-2 h-auto w-3 flex-shrink-0' />
-                Strategy
+              <Button asChild variant={'outline'}>
+                <Link href='/tags/pytorch'>
+                <BriefcaseIcon className='mr-2 h-auto w-3 flex-shrink-0' />
+                Pytorch
+                </Link>
               </Button>
-              <Button variant={'outline'}>
-                <HeartIcon className='mr-2 h-auto w-3 flex-shrink-0' />
-                Health
+              <Button asChild variant={'outline'}>
+                <Link href='/tags/docker'>
+                <BriefcaseIcon className='mr-2 h-auto w-3 flex-shrink-0' />
+                Docker
+                </Link>
               </Button>
-              <Button variant={'outline'}>
-                <LightbulbIcon className='mr-2 h-auto w-3 flex-shrink-0' />
-                Creative
+              <Button asChild variant={'outline'}>
+                <Link href='/tags/mac'>
+                <BriefcaseIcon className='mr-2 h-auto w-3 flex-shrink-0' />
+                Mac
+                </Link>
               </Button>
-              <Button variant={'outline'}>
-                <FlowerIcon className='mr-2 h-auto w-3 flex-shrink-0' />
-                Environment
+              <Button asChild variant={'outline'}>
+                <Link href='/tags/pytorch'>
+                <BriefcaseIcon className='mr-2 h-auto w-3 flex-shrink-0' />
+                Pytorch
+                </Link>
               </Button>
-              <Button variant={'outline'}>
-                <MountainSnow className='mr-2 h-auto w-3 flex-shrink-0' />
-                Adventure
+              <Button asChild variant={'outline'}>
+                <Link href='/tags/docker'>
+                <BriefcaseIcon className='mr-2 h-auto w-3 flex-shrink-0' />
+                Docker
+                </Link>
               </Button>
             </div>
           </div>

@@ -63,12 +63,11 @@ export default async function page({ params }: Props) {
       </div>
     </div>
         <div className='mx-auto max-w-7xl px-8 py-12 md:px-32'>
-            <ul className='divide-y divide-slate-100'>
+            <ul className='divide-y divide-slate-100 w-full'>
                 <li className='flex flex-col gap-2'>
                     <h3 className='text-lg font-semibold leading-6 text-slate-900 lg:text-xl'>
-                    {job.company_website}
                     </h3>
-                    <p className='text-sm text-gray-500'>
+                    <p className='text-xl text-gray-500'>
                     {job.location} | {job.type} | {job.salary}
                     </p>
                 </li>
