@@ -34,7 +34,7 @@ export default function Hero({title = "Find your next job.", description = "Sear
               {/* Form */}
               <form onSubmit={(e) => { 
                 e.preventDefault() 
-                router.push(`/search?search=${search}`)
+                router.push(`/search/${search}`)
               }
               }>
                 <div className='relative z-10 flex space-x-3 rounded-lg border bg-background p-3 shadow-lg'>

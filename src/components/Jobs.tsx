@@ -148,7 +148,7 @@ export default function Jobs({
             {company}
           </dd>
         </div>
-        <div className="col-start-3 row-start-2 -ml-2.5 flex-auto items-center sm:ml-0 sm:pl-6">
+        <div className="col-start-3 row-start-2 -ml-2.5 flex-auto sm:ml-0 sm:pl-6">
           <dt className="sr-only">Location</dt>
           <dd className="flex items-center text-xs leading-6 text-slate-500">
             <svg
@@ -159,7 +159,7 @@ export default function Jobs({
               <circle cx="1" cy="1" r="1"></circle>
             </svg>
             
-            <ArrowRight className=' mr-1 ' />
+            <ArrowRight className=' mr-1' />
           </dd>
        
         </div>
@@ -196,7 +196,7 @@ export default function Jobs({
             </Badge>
           </dd>
         </div>
-        <div className="col-span-3 mt-2 flex">
+        <div className="col-span-3  flex">
 
         {tags?.slice(0, 2).map((tag) => (
                 <Badge key={tag} variant="secondary">

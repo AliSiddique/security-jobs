@@ -137,10 +137,10 @@ export default function JobsList({}: Props) {
 
         <ul className='divide-y divide-slate-100'>
           {data &&
-            data.pages.map((page: any) => {
+            data.pages.map((page) => {
               return (
                 <React.Fragment key={page.nextId ?? 'lastPage'}>
-                  {page.posts.map((post: any) => (
+                  {page.posts.map((post:any) => (
                     <JobEntries
                       url={'/companies/' + post.slug}
                       type={post.type}

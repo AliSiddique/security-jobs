@@ -39,6 +39,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import Image from 'next/image';
 
 export default function Navbar() {
   return (
@@ -46,36 +47,26 @@ export default function Navbar() {
       <header className='sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-20 '>
         <nav className='hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:justify-between md:gap-5 md:text-sm lg:gap-6 '>
           <Link
-            href='#'
+            href='/'
             className='flex items-center gap-2 text-lg font-semibold md:text-base'
           >
-            <Package2 className='h-6 w-6' />
+            <Image src={'/logo.webp'} className='h-6 w-6 rounded-full' alt='Logo image' width={100} height={100} />
             <span className='sr-only'>Acme Inc</span>
           </Link>
         </nav>
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button
+     
+            <Button asChild
               variant='outline'
-              size='icon'
               className='shrink-0 md:hidden'
             >
-              <Menu className='h-5 w-5' />
-              <span className='sr-only'>Toggle navigation menu</span>
-            </Button>
-          </SheetTrigger>
-          <SheetContent side='left'>
-            <nav className='grid gap-6 text-lg font-medium'>
-              <Link
-                href='#'
-                className='flex items-center gap-2 text-lg font-semibold'
-              >
-                <Package2 className='h-6 w-6' />
-                <span className='sr-only'>Acme Inc</span>
+              <Link href='/'>
+              <Image src={'/logo.webp'} className='h-6 w-6 rounded-full' alt='Logo image' width={100} height={100} />
+
+              <span className='sr-only'>Logo</span>
               </Link>
-            </nav>
-          </SheetContent>
-        </Sheet>
+            </Button>
+
+   
         <div className='flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4'>
           <form className='ml-auto flex-1 sm:flex-initial'>
             <div className='relative'></div>

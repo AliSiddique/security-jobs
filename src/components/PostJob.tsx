@@ -25,34 +25,12 @@ import { Button } from './ui/button';
 import { loadStripe } from '@stripe/stripe-js';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
 
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Switch } from './ui/switch';
 import RichTextEditor from './ui/RichTextEditor';
-// const formSchema = z.object({
-//     companyName: z.string().min(2, {
-//       message: "Name must be at least 2 characters.",
-//     }),
-//     companyEmail: z.string().email(),
-//     companyWebsite: z.string().url(),
-//     companySize: z.string().optional(),
-//     companyType: z.string().optional(),
-//     companyIndustry: z.string().optional(),
-//     companyLocation: z.string().optional(),
-//     companyDescription: z.string().optional(),
-//     companyLogo: z.string().optional(),
-//     jobTitle: z.string().optional(),
-//     jobType: z.string().optional(),
-//     jobLocation: z.string().optional(),
-//     jobDescription: z.string().optional(),
-//     jobResponsibilities: z.string().optional(),
-//     jobRequirements: z.string().optional(),
-//     jobSalary: z.string().optional(),
-//     applyLink: z.string().optional(),
 
-//   })
 const formSchema = z.object({
   company_name: z.string().min(2, {
     message: 'Name must be at least 2 characters.',
@@ -80,104 +58,8 @@ const formSchema = z.object({
 });
 
 export default function PostJob() {
-  // const [color, setColor] = React.useState('');
 
-  // const [company_name, setCompany_name] = React.useState('Apple');
-  // const [company_email, setCompany_email] = React.useState(
-  //   'alisiddique10@hotmail.com'
-  // );
 
-  // const [tags, setTags] = React.useState<Tag[]>([]);
-
-  // const [value, setValue] = React.useState({
-  //   topics: [] as Tag[],
-  // });
-
-  // const [company_website, setCompany_website] =
-  //   React.useState('https://apple.com');
-  // const [company_industry, setCompany_industry] = React.useState('Software');
-  // const [company_description, setCompany_description] = React.useState(
-  //   'A great company to work for'
-  // );
-  // const [company_logo, setCompany_logo] = React.useState<any | null>(null);
-  // const [company_linkedin, setCompany_linkedin] = React.useState(
-  //   'https://linkedin.com/company/apple'
-  // );
-  // const [job_title, setJob_title] = React.useState('Backend Developer');
-  // const [job_type, setJob_type] = React.useState('Mid-level');
-  // const [job_location, setJob_location] = React.useState('California, USA');
-  // const [job_salary, setJob_salary] = React.useState('120,000');
-  // const [job_description, setJob_description] = React.useState(
-  //   'Need a backend developer to work on our new project'
-  // );
-  // const [job_apply_link, setJob_apply_link] = React.useState(
-  //   'https://apple.com/jobs/1'
-  // );
-  // console.log(company_logo);
-
-  // const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-
-  //   const response = await fetch(`/api/post-job`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       company_name,
-  //       company_website,
-  //       company_industry,
-  //       company_description,
-  //       company_linkedin,
-  //       job_title,
-  //       job_type,
-  //       job_location,
-  //       job_salary,
-  //       job_description,
-  //       job_apply_link,
-  //       color,
-  //       company_email,
-  //       remote,
-  //       tags,
-  //     }),
-  //   });
-  //   // Handle response
-
-  //   const data = await response.json();
-  //   const stripePromise = await loadStripe(
-  //     process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
-  //   );
-  //   if (stripePromise)
-  //     await stripePromise.redirectToCheckout({ sessionId: data.id });
-  //   if (response.ok) {
-  //     toast.success('Job posted successfully');
-  //   } else {
-  //     toast.error('Failed to post job');
-  //   }
-  // };
-
-  // const form = useForm<z.infer<typeof formSchema>>({
-  //     resolver: zodResolver(formSchema),
-  //     defaultValues: {
-  //         companyName: "",
-  //         companyEmail: "",
-  //         companyWebsite: "",
-  //         companySize: "",
-  //         companyType: "",
-  //         companyIndustry: "",
-  //         companyLocation: "",
-  //         companyDescription: "",
-  //         companyLogo: "",
-  //         jobTitle: "",
-  //         jobType: "",
-  //         jobLocation: "",
-  //         jobDescription: "",
-  //         jobResponsibilities: "",
-  //         jobRequirements: "",
-  //         jobSalary: "",
-  //         applyLink: "",
-  //     },
-  //   })
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
@@ -209,9 +91,7 @@ export default function PostJob() {
         tags,
       }),
     });
-    // Handle response
-
-    // ✅ This will be type-safe and validated.
+    
     const data = await response.json();
     const stripePromise = await loadStripe(
       process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
@@ -241,57 +121,9 @@ export default function PostJob() {
               </p>
             </div>
             <div className='mt-12 grid grid-cols-1 gap-4'>
-              {/* <div className=' rounded-3xl border p-8 shadow-2xl shadow-slate-500/10 '>
-                <div className='gap-3 lg:inline-flex lg:items-center'>
-                  <div className='flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-tr from-purple-700 via-purple-500 to-purple-300 text-white'>
-                    1
-                  </div>
-                  <p className='mt-4 text-base font-medium text-black lg:mt-0'>
-                    Add job poster details
-                  </p>
-                </div>
-
-                <p className='mt-2 text-sm text-slate-500'>
-                  Capture essential details about the job poster, including
-                  their name, contact information, and any specific
-                  requirements.
-                </p>
-              </div> */}
-              {/* <div className=' rounded-3xl border p-8 shadow-2xl shadow-slate-500/10 '>
-                <div className='gap-3 lg:inline-flex lg:items-center'>
-                  <div className='flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-tr from-purple-700 via-purple-500 to-purple-300 text-white'>
-                    1
-                  </div>
-
-                  <p className='mt-4 text-base font-medium text-black lg:mt-0'>
-                    Add all details
-                  </p>
-                </div>
-                <p className='mt-2 text-sm text-slate-500'>
-                  Include comprehensive information about the job itself, such
-                  as the job title, description, requirements or
-                  responsibilities.
-                </p>
-              </div> */}
-              {/* <div className=' rounded-3xl border p-8 shadow-2xl shadow-slate-500/10 '>
-                <div className='gap-3 lg:inline-flex lg:items-center'>
-                  <div className='flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-tr from-purple-700 via-purple-500 to-purple-300 text-white'>
-                    3
-                  </div>
-
-                  <p className='mt-4 text-base font-medium text-black lg:mt-0'>
-                    Add company details
-                  </p>
-                </div>
-                <p className='mt-2 text-sm text-slate-500'>
-                  Provide in-depth information about the company posting the
-                  job, including the company name, industry, location, website,
-                  size, culture.
-                </p>
-              </div> */}
               <JobEntries
                 company={form.watch('company_name')}
-                companyLogo={form.watch('company_logo') ?? 'https://via.placeholder.com/150'}
+                companyLogo={form.watch('company_logo') ?? '/logo.webp'}
                 position={form.watch('jobTitle')}
                 url={form.watch('company_website')}
                 type={form.watch('jobType')}
@@ -299,7 +131,7 @@ export default function PostJob() {
                 location={form.watch('jobLocation')}
                 color={form.watch('color')}
                 apply_link={form.watch('applyLink')}
-                id={'2'}
+                id={nanoid()}
                 title={form.watch('jobTitle')}
               />
             </div>
@@ -329,7 +161,7 @@ export default function PostJob() {
                                 <FormItem>
                                   <FormControl>
                                     <Input
-                                      placeholder='shadcn'
+                                      placeholder='ali@saasunderone.com'
                                       {...field}
                                       className='block w-full rounded-lg border-0 bg-white py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
                                     />
@@ -359,7 +191,7 @@ export default function PostJob() {
                                 <FormItem>
                                   <FormControl>
                                     <Input
-                                      placeholder='shadcn'
+                                      placeholder='Software Engineer'
                                       {...field}
                                       className='block w-full rounded-lg border-0 bg-white py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
                                     />
@@ -387,7 +219,7 @@ export default function PostJob() {
                                 <FormItem>
                                   <FormControl>
                                     <Input
-                                      placeholder='shadcn'
+                                      placeholder='Full-time'
                                       {...field}
                                       className='block w-full rounded-lg border-0 bg-white py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
                                     />
@@ -414,7 +246,7 @@ export default function PostJob() {
                                 <FormItem>
                                   <FormControl>
                                     <Input
-                                      placeholder='shadcn'
+                                      placeholder='San Francisco, CA'
                                       {...field}
                                       className='block w-full rounded-lg border-0 bg-white py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
                                     />
@@ -426,7 +258,7 @@ export default function PostJob() {
                             />
                           </div>
                         </div>
-                        <div className='sm:col-span-3'>
+                        <div className='sm:col-span-full'>
                           <label
                             htmlFor='salary'
                             className='block text-sm font-medium leading-6 text-slate-900'
@@ -441,7 +273,7 @@ export default function PostJob() {
                                 <FormItem>
                                   <FormControl>
                                     <Input
-                                      placeholder='shadcn'
+                                      placeholder='120,000'
                                       {...field}
                                       className='block w-full rounded-lg border-0 bg-white py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
                                     />
@@ -496,7 +328,7 @@ export default function PostJob() {
                                 <FormItem>
                                   <FormControl>
                                     <Input
-                                      placeholder='shadcn'
+                                      placeholder='SaasUnderOne'
                                       {...field}
                                       className='block w-full rounded-lg border-0 bg-white py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
                                     />
@@ -524,7 +356,7 @@ export default function PostJob() {
                                 <FormItem>
                                   <FormControl>
                                     <Input
-                                      placeholder='shadcn'
+                                      placeholder='https://saasunderone.com'
                                       {...field}
                                       className='block w-full rounded-lg border-0 bg-white py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
                                     />
@@ -538,7 +370,7 @@ export default function PostJob() {
                         </div>
                         <div className='sm:col-span-3'>
                           <label
-                            htmlFor='companyLogo'
+                            htmlFor='company_industry'
                             className='block text-sm font-medium leading-6 text-slate-900'
                           >
                             Company industry
@@ -551,7 +383,7 @@ export default function PostJob() {
                                 <FormItem>
                                   <FormControl>
                                     <Input
-                                      placeholder='shadcn'
+                                      placeholder='Software Development'
                                       {...field}
                                       className='block w-full rounded-lg border-0 bg-white py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
                                     />
@@ -578,7 +410,7 @@ export default function PostJob() {
                                 <FormItem>
                                   <FormControl>
                                     <Input
-                                      placeholder='shadcn'
+                                      placeholder='https://linkedin.com/in/shadcn'
                                       {...field}
                                       className='block w-full rounded-lg border-0 bg-white py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
                                     />
@@ -631,7 +463,7 @@ export default function PostJob() {
                                 <FormItem>
                                   <FormControl>
                                     <Input
-                                      placeholder='shadcn'
+                                      placeholder='https://saasunderone.com/careers'
                                       {...field}
                                       className='block w-full rounded-lg border-0 py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
                                     />
@@ -664,7 +496,6 @@ export default function PostJob() {
                                       className='sm:min-w-[450px]'
                                       setTags={(newTags) => {
                                         form.setValue('tags', newTags as [Tag, ...Tag[]]);
-                                        //   setValue("topics", newTags as [Tag, ...Tag[]]);
                                       }}
                                     />
                                   </FormControl>
@@ -749,9 +580,6 @@ export default function PostJob() {
                                       endpoint='imageUploader'
                                       className='block text-sm font-medium leading-6 text-slate-900'
                                       onClientUploadComplete={(res) => {
-                                        // Do something with the response
-                                        console.log('Files: ', res);
-                                        //   setCompany_logo(res[0].url);
                                         form.setValue(
                                           'company_logo',
                                           res[0].url
@@ -780,20 +608,20 @@ export default function PostJob() {
 
                           className='inline-flex z-50 w-full items-center justify-center rounded-full  px-5 py-3 text-sm text-center text-white duration-200 hover:bg-purple-50 hover:text-purple-500 focus:outline-none focus:ring-0 focus:ring-purple-500 focus:ring-offset-2 md:focus:ring-2'
                         >
-                          Submit <span>&rarr;</span>
+                          Submit
                         </Button>
                         <p className='mt-4 text-center text-xs text-slate-500'>
                           By clicking the button, you agree to our{' '}
                           <a
                             href='#'
-                            className='text-purple-500 hover:underline'
+                            className=' hover:underline'
                           >
                             Terms of Service
                           </a>{' '}
                           and{' '}
                           <a
                             href='#'
-                            className='text-purple-500 hover:underline'
+                            className=' hover:underline'
                           >
                             Privacy Policy
                           </a>
