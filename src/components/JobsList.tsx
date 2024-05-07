@@ -128,12 +128,10 @@ export default function JobsList({}: Props) {
       <div className='mx-auto max-w-6xl px-8 py-12 md:px-32'>
         <div className='gird-cols-1 grid gap-2 border-b border-gray-200 pb-5 lg:grid-cols-2'>
           <h3 className='text-lg font-semibold leading-6 text-slate-900 lg:text-xl'>
-            Latest jobs
+            Featured Jobs
           </h3>
           <p className='text-sm text-gray-500'>
-            Stay updated with the newest job openings for developers, designers,
-            and marketers in the tech industry. Find your next career move and
-            stay ahead of the curve.
+            Browse through our curated list of featured jobs.
           </p>
         </div>
 

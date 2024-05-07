@@ -5,6 +5,7 @@ import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import Link from 'next/link';
 import { Card } from './ui/card';
+import { ArrowRight, DollarSign } from 'lucide-react';
 
 type Props = {
   company: string;
@@ -36,6 +37,7 @@ export default function Jobs({
   id,
   title,
 }: Props) {
+
   return (
     // <div classNameName={``}>
     //   <li classNameName={`bg-[${color}] text-gray-900 dark:text-white`}>
@@ -146,7 +148,7 @@ export default function Jobs({
             {company}
           </dd>
         </div>
-        <div className="col-start-3 row-start-2 -ml-2.5 flex-auto sm:ml-0 sm:pl-6">
+        <div className="col-start-3 row-start-2 -ml-2.5 flex-auto items-center sm:ml-0 sm:pl-6">
           <dt className="sr-only">Location</dt>
           <dd className="flex items-center text-xs leading-6 text-slate-500">
             <svg
@@ -156,7 +158,8 @@ export default function Jobs({
             >
               <circle cx="1" cy="1" r="1"></circle>
             </svg>
-            {location}
+            
+            <ArrowRight className=' mr-1 ' />
           </dd>
        
         </div>
@@ -177,7 +180,7 @@ export default function Jobs({
             {type}
           </dd>
         </div>
-        <div className="col-span-3 -ml-2.5 flex-none">
+        <div className="col-span-3 -ml-2.5 flex">
           <dt className="sr-only">Salary</dt>
           <dd className="flex items-center text-xs leading-6 text-slate-500">
             <svg
@@ -186,9 +189,20 @@ export default function Jobs({
               className="mr-2 h-0.5 w-0.5 flex-none fill-slate-400"
             >
               <circle cx="1" cy="1" r="1"></circle>
-            </svg>
-            {salary}
+            </svg> 
+            <Badge  variant="default">
+              <DollarSign className='w-2 h-2 mr-1' />
+              {new Intl.NumberFormat().format(Number(salary))}
+            </Badge>
           </dd>
+        </div>
+        <div className="col-span-3 mt-2 flex">
+
+        {tags?.slice(0, 2).map((tag) => (
+                <Badge key={tag} variant="secondary">
+                  {tag}
+                </Badge>
+              ))}
         </div>
       </dl>
     </div>

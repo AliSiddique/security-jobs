@@ -14,12 +14,13 @@ export default async function Page({
 }) {
   const search = searchParams?.query || ""
   const limit = 20
+  
 
   const { data: initialData } = await GetJobs({ search, limit })
 
   return (
     <>
-    <Hero />
+    <Hero title={`Search Jobs for ${search}`} description={`Search for your next for ${searchParams?.query} job from our database of over 1000+ jobs`} />
       <div className="mb-3 flex items-center justify-between">
      
       </div>

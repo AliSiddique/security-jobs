@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 
-export default function Hero() {
+export default function Hero({title = "Find your next job.", description = "Search for your next job from our database of over 1000+ jobs."}) {
   const [search, setSearch] = useState('');
   const router = useRouter();
   return (
@@ -25,10 +25,10 @@ export default function Hero() {
         <div className='container py-24 lg:py-32'>
           <div className='text-center'>
             <h1 className='scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl'>
-              Find your next job.
+              {title}
             </h1>
             <p className='mt-3 text-xl text-muted-foreground'>
-              Search for your next job from our database of over 1000+ jobs.
+              {description}
             </p>
             <div className='relative mx-auto mt-7 max-w-xl sm:mt-12'>
               {/* Form */}
