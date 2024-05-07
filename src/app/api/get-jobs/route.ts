@@ -24,12 +24,8 @@ export async function GET(req: NextRequest, res: Response) {
     where: {
       featured: true,
     },
+
   });
-  console.log(posts);
-  // if (posts.length === 0) {
-  //   return NextResponse.json({ posts: [], nextId: 0 })
-  // }
-  // return res.json({ posts, nextId: posts.length === limit ? posts[limit - 1].id : undefined })
   return NextResponse.json({
     posts,
     nextId: posts.length === limit ? posts[limit - 1].id : undefined,

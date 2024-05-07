@@ -25,10 +25,10 @@ export default function Hero() {
         <div className='container py-24 lg:py-32'>
           <div className='text-center'>
             <h1 className='scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl'>
-              Insights
+              Find your next job.
             </h1>
             <p className='mt-3 text-xl text-muted-foreground'>
-              Stay in the know with insights from industry experts.
+              Search for your next job from our database of over 1000+ jobs.
             </p>
             <div className='relative mx-auto mt-7 max-w-xl sm:mt-12'>
               {/* Form */}
@@ -46,7 +46,7 @@ export default function Hero() {
                       id='article'
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
-                      placeholder='Search article'
+                      placeholder='Search jobs'
                     />
                   </div>
                   <div className='flex-[0_0_auto]'>

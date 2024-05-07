@@ -15,9 +15,9 @@ export async function GetJobs({
 }) {
   const data = await db.jobPost.findMany({
     where: {
-       title: { contains: search ,mode:"insensitive" 
-      
-      } },
+       title: { contains: search ,mode:"insensitive" },
+
+      },
     skip: offset,
     take: limit,
   })
