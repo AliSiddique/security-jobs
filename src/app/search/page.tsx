@@ -1,14 +1,31 @@
-"use client";
-import { useSearchParams } from 'next/navigation'
-import React from 'react'
+import { Suspense } from "react"
 
-type Props = {}
+import { GetJobs } from "./actions"
+import { Skeleton } from "@/components/ui/skeleton"
+import InfiniteCardList from "@/components/ui/infinite-card-list"
+import Hero from "@/components/ui/Hero"
 
-export default function page({}: Props) {
-    const search = useSearchParams()
-    const query = search.get('search')
-    console.log(query)
+export default async function Page({
+  searchParams,
+}: {
+  searchParams?: {
+    query?: string
+  }
+}) {
+  const search = searchParams?.query || ""
+  const limit = 20
+
+  const { data: initialData } = await GetJobs({ search, limit })
+
   return (
-    <div>page</div>
+    <>
+    <Hero />
+      <div className="mb-3 flex items-center justify-between">
+     
+      </div>
+      <Suspense key={search} fallback={<Skeleton />}>
+        <InfiniteCardList search={search} initialData={initialData} limit={limit} />
+      </Suspense>
+    </>
   )
 }
