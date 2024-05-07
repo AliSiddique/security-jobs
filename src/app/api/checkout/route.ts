@@ -3,6 +3,12 @@ import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 export async function POST(req: Request) {
   try {
+    let url;
+    if (process.env.NODE_ENV === 'production') {
+      url = process.env.NEXT_PUBLIC_BASE_URL;
+    } else {
+      url = 'http://localhost:3000';
+    }
     const params: Stripe.Checkout.SessionCreateParams = {
       payment_method_types: ['card', 'paypal'],
       mode: 'payment',
@@ -13,8 +19,8 @@ export async function POST(req: Request) {
         },
       ],
 
-      success_url: `http://localhost:3000/success`,
-      cancel_url: `http://localhost:3000/`,
+      success_url: `${url}/`,
+      cancel_url: `${url}/post-job`,
     };
 
     const checkoutSession: Stripe.Checkout.Session =
