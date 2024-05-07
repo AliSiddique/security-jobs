@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -15,7 +15,10 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 
-export default function Hero({title = "Find your next job.", description = "Search for your next job from our database of over 1000+ jobs."}) {
+export default function Hero({
+  title = 'Find your next job.',
+  description = 'Search for your next job from our database of over 1000+ jobs.',
+}) {
   const [search, setSearch] = useState('');
   const router = useRouter();
   return (
@@ -27,19 +30,17 @@ export default function Hero({title = "Find your next job.", description = "Sear
             <h1 className='scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl'>
               {title}
             </h1>
-            <p className='mt-3 text-xl text-muted-foreground'>
-              {description}
-            </p>
+            <p className='mt-3 text-xl text-muted-foreground'>{description}</p>
             <div className='relative mx-auto mt-7 max-w-xl sm:mt-12'>
               {/* Form */}
-              <form onSubmit={(e) => { 
-                e.preventDefault() 
-                router.push(`/search/${search}`)
-              }
-              }>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  router.push(`/search/${search}`);
+                }}
+              >
                 <div className='relative z-10 flex space-x-3 rounded-lg border bg-background p-3 shadow-lg'>
                   <div className='flex-[1_0_0%]'>
-                    
                     <Input
                       name='article'
                       className='h-full'
@@ -111,38 +112,38 @@ export default function Hero({title = "Find your next job.", description = "Sear
             <div className='mt-10 flex flex-wrap justify-center gap-2 sm:mt-20'>
               <Button asChild variant={'outline'}>
                 <Link href='/tags/docker'>
-                <BriefcaseIcon className='mr-2 h-auto w-3 flex-shrink-0' />
-                Docker
+                  <BriefcaseIcon className='mr-2 h-auto w-3 flex-shrink-0' />
+                  Docker
                 </Link>
               </Button>
               <Button asChild variant={'outline'}>
                 <Link href='/tags/pytorch'>
-                <BriefcaseIcon className='mr-2 h-auto w-3 flex-shrink-0' />
-                Pytorch
+                  <BriefcaseIcon className='mr-2 h-auto w-3 flex-shrink-0' />
+                  Pytorch
                 </Link>
               </Button>
               <Button asChild variant={'outline'}>
                 <Link href='/tags/docker'>
-                <BriefcaseIcon className='mr-2 h-auto w-3 flex-shrink-0' />
-                Docker
+                  <BriefcaseIcon className='mr-2 h-auto w-3 flex-shrink-0' />
+                  Docker
                 </Link>
               </Button>
               <Button asChild variant={'outline'}>
                 <Link href='/tags/mac'>
-                <BriefcaseIcon className='mr-2 h-auto w-3 flex-shrink-0' />
-                Mac
+                  <BriefcaseIcon className='mr-2 h-auto w-3 flex-shrink-0' />
+                  Mac
                 </Link>
               </Button>
               <Button asChild variant={'outline'}>
                 <Link href='/tags/pytorch'>
-                <BriefcaseIcon className='mr-2 h-auto w-3 flex-shrink-0' />
-                Pytorch
+                  <BriefcaseIcon className='mr-2 h-auto w-3 flex-shrink-0' />
+                  Pytorch
                 </Link>
               </Button>
               <Button asChild variant={'outline'}>
                 <Link href='/tags/docker'>
-                <BriefcaseIcon className='mr-2 h-auto w-3 flex-shrink-0' />
-                Docker
+                  <BriefcaseIcon className='mr-2 h-auto w-3 flex-shrink-0' />
+                  Docker
                 </Link>
               </Button>
             </div>

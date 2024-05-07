@@ -24,7 +24,6 @@ export async function GET(req: NextRequest, res: Response) {
     where: {
       featured: true,
     },
-
   });
   return NextResponse.json({
     posts,

@@ -50,23 +50,31 @@ export default function Navbar() {
             href='/'
             className='flex items-center gap-2 text-lg font-semibold md:text-base'
           >
-            <Image src={'/logo.webp'} className='h-6 w-6 rounded-full' alt='Logo image' width={100} height={100} />
+            <Image
+              src={'/logo.webp'}
+              className='h-6 w-6 rounded-full'
+              alt='Logo image'
+              width={100}
+              height={100}
+            />
             <span className='sr-only'>Acme Inc</span>
           </Link>
         </nav>
-     
-            <Button asChild
-              variant='outline'
-              className='shrink-0 md:hidden'
-            >
-              <Link href='/'>
-              <Image src={'/logo.webp'} className='h-6 w-6 rounded-full' alt='Logo image' width={100} height={100} />
 
-              <span className='sr-only'>Logo</span>
-              </Link>
-            </Button>
+        <Button asChild variant='outline' className='shrink-0 md:hidden'>
+          <Link href='/'>
+            <Image
+              src={'/logo.webp'}
+              className='h-6 w-6 rounded-full'
+              alt='Logo image'
+              width={100}
+              height={100}
+            />
 
-   
+            <span className='sr-only'>Logo</span>
+          </Link>
+        </Button>
+
         <div className='flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4'>
           <form className='ml-auto flex-1 sm:flex-initial'>
             <div className='relative'></div>

@@ -140,7 +140,7 @@ export default function JobsList({}: Props) {
             data.pages.map((page) => {
               return (
                 <React.Fragment key={page.nextId ?? 'lastPage'}>
-                  {page.posts.map((post:any) => (
+                  {page.posts.map((post: any) => (
                     <JobEntries
                       url={'/companies/' + post.slug}
                       type={post.type}
@@ -165,7 +165,6 @@ export default function JobsList({}: Props) {
       <span style={{ visibility: 'hidden' }} ref={ref}>
         intersection observer marker
       </span>
-    
     </section>
   );
 }

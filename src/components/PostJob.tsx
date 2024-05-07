@@ -10,7 +10,7 @@ import { useState } from 'react';
 import { Tag, TagInput } from '@/components/ui/tag-input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import '@uploadthing/react/styles.css';
-import { draftToMarkdown } from "markdown-draft-js";
+import { draftToMarkdown } from 'markdown-draft-js';
 
 import {
   Form,
@@ -58,15 +58,30 @@ const formSchema = z.object({
 });
 
 export default function PostJob() {
-
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
-    const {company_name, company_website, company_industry, company_logo, company_description, company_linkedin, jobTitle, jobType, jobLocation, jobSalary, jobDescription, applyLink, color, company_email, remote, tags} = values;
+    const {
+      company_name,
+      company_website,
+      company_industry,
+      company_logo,
+      company_description,
+      company_linkedin,
+      jobTitle,
+      jobType,
+      jobLocation,
+      jobSalary,
+      jobDescription,
+      applyLink,
+      color,
+      company_email,
+      remote,
+      tags,
+    } = values;
     const response = await fetch(`/api/post-job`, {
       method: 'POST',
       headers: {
@@ -79,19 +94,19 @@ export default function PostJob() {
         company_industry,
         company_description,
         company_linkedin,
-        title:jobTitle,
-        type:jobType,
-        location:jobLocation,
-        salary:jobSalary,
-        description:jobDescription,
-        apply_link:applyLink,
+        title: jobTitle,
+        type: jobType,
+        location: jobLocation,
+        salary: jobSalary,
+        description: jobDescription,
+        apply_link: applyLink,
         color,
         company_email,
         remote,
         tags,
       }),
     });
-    
+
     const data = await response.json();
     const stripePromise = await loadStripe(
       process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
@@ -286,28 +301,25 @@ export default function PostJob() {
                           </div>
                         </div>
                         <div className='col-span-full'>
-     
                           <div className='mt-2'>
-                          <FormField
-              control={form.control}
-              name="jobDescription"
-              render={({ field }) => (
-                <FormItem>
-                  <Label>
-                  Job Description
-                  </Label>
-                  <FormControl>
-                    <RichTextEditor
-                      onChange={(draft) =>
-                        field.onChange(draftToMarkdown(draft))
-                      }
-                      ref={field.ref}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                            <FormField
+                              control={form.control}
+                              name='jobDescription'
+                              render={({ field }) => (
+                                <FormItem>
+                                  <Label>Job Description</Label>
+                                  <FormControl>
+                                    <RichTextEditor
+                                      onChange={(draft) =>
+                                        field.onChange(draftToMarkdown(draft))
+                                      }
+                                      ref={field.ref}
+                                    />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
                           </div>
                         </div>
                       </div>
@@ -423,31 +435,28 @@ export default function PostJob() {
                           </div>
                         </div>
                         <div className='col-span-full'>
-          
                           <div className='mt-2'>
-                          <FormField
-              control={form.control}
-              name="company_description"
-              render={({ field }) => (
-                <FormItem>
-                  <Label>
-                  Company Description
-                  </Label>
-                  <FormControl>
-                    <RichTextEditor
-                      onChange={(draft) =>
-                        field.onChange(draftToMarkdown(draft))
-                      }
-                      ref={field.ref}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                            <FormField
+                              control={form.control}
+                              name='company_description'
+                              render={({ field }) => (
+                                <FormItem>
+                                  <Label>Company Description</Label>
+                                  <FormControl>
+                                    <RichTextEditor
+                                      onChange={(draft) =>
+                                        field.onChange(draftToMarkdown(draft))
+                                      }
+                                      ref={field.ref}
+                                    />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
                           </div>
                         </div>
-  
+
                         <div className='col-span-full'>
                           <label
                             htmlFor='applyLink'
@@ -492,10 +501,13 @@ export default function PostJob() {
                                     <TagInput
                                       {...field}
                                       placeholder='Enter a topic'
-                                      tags={field.value as Tag[] ?? []}
+                                      tags={(field.value as Tag[]) ?? []}
                                       className='sm:min-w-[450px]'
                                       setTags={(newTags) => {
-                                        form.setValue('tags', newTags as [Tag, ...Tag[]]);
+                                        form.setValue(
+                                          'tags',
+                                          newTags as [Tag, ...Tag[]]
+                                        );
                                       }}
                                     />
                                   </FormControl>
@@ -509,60 +521,58 @@ export default function PostJob() {
                             />
                           </div>
                           <div className='col-span-full grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 pt-8 sm:grid-cols-6'>
-                          <div className='sm:col-span-3'>
-                          <label
-                            htmlFor='color'
-                            className='block text-sm font-medium leading-6 text-slate-900'
-                          >
-                            Company Color
-                          </label>
-                            <FormField
-                              control={form.control}
-                              name='color'
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormControl>
-                                    <Input
-                                      type='color'
-                                      {...field}
-                                      className='block w-full rounded-lg border-0 bg-white py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
-                                    />
-                                  </FormControl>
+                            <div className='sm:col-span-3'>
+                              <label
+                                htmlFor='color'
+                                className='block text-sm font-medium leading-6 text-slate-900'
+                              >
+                                Company Color
+                              </label>
+                              <FormField
+                                control={form.control}
+                                name='color'
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormControl>
+                                      <Input
+                                        type='color'
+                                        {...field}
+                                        className='block w-full rounded-lg border-0 bg-white py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
+                                      />
+                                    </FormControl>
 
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                          </div>
-                          <div className='sm:col-span-3 '>
-                          <label
-                            htmlFor='remote'
-                            className='block text-sm font-medium leading-6 text-slate-900'
-                          >
-                            Remote 
-                          </label>
-                            <FormField
-                              control={form.control}
-                              name='remote'
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormControl>
-                                    <Switch
-                                    
-                                      checked={field.value}
-                                      onCheckedChange={field.onChange}
-                                    />
-                                  </FormControl>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                            </div>
+                            <div className='sm:col-span-3 '>
+                              <label
+                                htmlFor='remote'
+                                className='block text-sm font-medium leading-6 text-slate-900'
+                              >
+                                Remote
+                              </label>
+                              <FormField
+                                control={form.control}
+                                name='remote'
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormControl>
+                                      <Switch
+                                        checked={field.value}
+                                        onCheckedChange={field.onChange}
+                                      />
+                                    </FormControl>
 
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
                             </div>
                           </div>
-                 
-            
-                          <div className='col-span-full pt-3 items-start justify-start'>
+
+                          <div className='col-span-full items-start justify-start pt-3'>
                             <label
                               htmlFor='companyDescription'
                               className='block text-sm font-medium leading-6 text-slate-900'
@@ -570,59 +580,51 @@ export default function PostJob() {
                               Company Logo
                             </label>
                             <div className='col-span-1 mt-2'>
-                            <FormField
-                              control={form.control}
-                              name='company_logo'
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormControl>
-                                    <UploadButton
-                                      endpoint='imageUploader'
-                                      className='block text-sm font-medium leading-6 text-slate-900'
-                                      onClientUploadComplete={(res) => {
-                                        form.setValue(
-                                          'company_logo',
-                                          res[0].url
-                                        );
-                                      }}
-                                      onUploadError={(error: Error) => {
-                                        // Do something with the error.
-                                        alert(`ERROR! ${error.message}`);
-                                      }}
-                                    />
-                                  </FormControl>
+                              <FormField
+                                control={form.control}
+                                name='company_logo'
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormControl>
+                                      <UploadButton
+                                        endpoint='imageUploader'
+                                        className='block text-sm font-medium leading-6 text-slate-900'
+                                        onClientUploadComplete={(res) => {
+                                          form.setValue(
+                                            'company_logo',
+                                            res[0].url
+                                          );
+                                        }}
+                                        onUploadError={(error: Error) => {
+                                          // Do something with the error.
+                                          alert(`ERROR! ${error.message}`);
+                                        }}
+                                      />
+                                    </FormControl>
 
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
                             </div>
                           </div>
-  
                         </div>
                       </div>
 
                       <div className='col-span-full p-8'>
                         <Button
                           type='submit'
-
-                          className='inline-flex z-50 w-full items-center justify-center rounded-full  px-5 py-3 text-sm text-center text-white duration-200 hover:bg-purple-50 hover:text-purple-500 focus:outline-none focus:ring-0 focus:ring-purple-500 focus:ring-offset-2 md:focus:ring-2'
+                          className='z-50 inline-flex w-full items-center justify-center rounded-full  px-5 py-3 text-center text-sm text-white duration-200 hover:bg-purple-50 hover:text-purple-500 focus:outline-none focus:ring-0 focus:ring-purple-500 focus:ring-offset-2 md:focus:ring-2'
                         >
                           Submit
                         </Button>
                         <p className='mt-4 text-center text-xs text-slate-500'>
                           By clicking the button, you agree to our{' '}
-                          <a
-                            href='#'
-                            className=' hover:underline'
-                          >
+                          <a href='#' className=' hover:underline'>
                             Terms of Service
                           </a>{' '}
                           and{' '}
-                          <a
-                            href='#'
-                            className=' hover:underline'
-                          >
+                          <a href='#' className=' hover:underline'>
                             Privacy Policy
                           </a>
                           .
