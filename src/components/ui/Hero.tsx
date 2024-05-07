@@ -1,6 +1,9 @@
+"use client"
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
 import {
   BriefcaseIcon,
   FlowerIcon,
@@ -13,6 +16,8 @@ import {
 import Link from 'next/link';
 
 export default function Hero() {
+  const [search, setSearch] = useState('');
+  const router = useRouter();
   return (
     <>
       {/* Hero */}
@@ -27,21 +32,25 @@ export default function Hero() {
             </p>
             <div className='relative mx-auto mt-7 max-w-xl sm:mt-12'>
               {/* Form */}
-              <form>
+              <form onSubmit={(e) => { 
+                e.preventDefault() 
+                router.push(`/search?search=${search}`)
+              }
+              }>
                 <div className='relative z-10 flex space-x-3 rounded-lg border bg-background p-3 shadow-lg'>
                   <div className='flex-[1_0_0%]'>
-                    <Label htmlFor='article' className='sr-only'>
-                      Search article
-                    </Label>
+                    
                     <Input
                       name='article'
                       className='h-full'
                       id='article'
+                      value={search}
+                      onChange={(e) => setSearch(e.target.value)}
                       placeholder='Search article'
                     />
                   </div>
                   <div className='flex-[0_0_auto]'>
-                    <Button size={'icon'}>
+                    <Button type='submit' size={'icon'}>
                       <SearchIcon />
                     </Button>
                   </div>
