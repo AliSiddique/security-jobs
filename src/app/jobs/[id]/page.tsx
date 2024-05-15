@@ -19,140 +19,232 @@ type Props = {
     id: string;
   };
 };
-const getJob = async (id: string) => {
-  const res: any = await db.jobPost.findUnique({
-    where: {
-      id: parseInt(id),
-    },
-  });
+// const getJob = async (id: string) => {
+//   const res: any = await db.jobPost.findUnique({
+//     where: {
+//       id: parseInt(id),
+//     },
+//   });
 
-  return res;
-};
+//   return res;
+// };
 
 export default async function page({ params }: Props) {
-  const job: JobPost = await getJob(params.id);
+  // const job: JobPost = await getJob(params.id);
   return (
     <div>
-      <section>
+     <section>
+  <div
+    className="items-center w-full px-8 md:px-12 py-12 lg:pt-32 mx-auto 2xl:max-w-7xl">
+    <div className="border-t border-zinc-800 pt-2">
+      <div
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-0">
+        <p className="text-white text-base tracking-wide font-display uppercase">
+          Procreate
+        </p>
+        <div className="text-base tracking-tight text-white">
+          <p className="gap-4 inline-flex items-center">
+            <span>Remote</span>一
+            <span>56 Days ago</span>一
+            <span>594 Applicantes</span>
+          </p>
+        </div>
         <div>
-          <div>
-            <img
-              className='h-32 w-full object-cover lg:h-48'
-              src={
-                'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2864&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-              }
-              alt=''
-            />
-          </div>
-          <div className='mx-auto max-w-5xl px-4 sm:px-6 lg:px-8'>
-            <div className='-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5'>
-              <div className='flex'>
-                <img
-                  className='h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32'
-                  src={job.company_logo}
-                  alt=''
-                />
-              </div>
-              <div className='mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1'>
-                <div className='mt-6 min-w-0 flex-1 sm:hidden md:block'>
-                  <h1 className='truncate text-2xl font-bold text-gray-900'>
-                    {job.title} at{' '}
-                    <Link
-                      className='underline'
-                      target='_blank'
-                      href={job.company_website}
-                    >
-                      {job.company_name}
-                    </Link>
-                  </h1>
-                </div>
-              </div>
-            </div>
-
-            <div className='mt-6  min-w-0 flex-1 sm:block '>
-              <dl className='mt-12 grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 sm:gap-y-16 lg:grid-cols-4'>
-                <div className='flex flex-col gap-y-3 pl-6'>
-                  <dt className='inline-flex items-center gap-2 text-base leading-7 text-slate-500'>
-                    <MapIcon className='h-6 w-6 text-slate-500' />
-                    Location
-                  </dt>
-                  <dd className='text-base font-semibold tracking-tight text-slate-900'>
-                    {job.location}
-                  </dd>
-                </div>
-                <div className='flex flex-col gap-y-3  pl-6'>
-                  <dt className='inline-flex items-center gap-2 text-base leading-7 text-slate-500'>
-                    <Building className='h-6 w-6 text-slate-500' />
-                    Department
-                  </dt>
-                  <dd className='text-base font-semibold tracking-tight text-slate-900'>
-                    {job.department}
-                  </dd>
-                </div>
-                <div className='flex flex-col gap-y-3  pl-6'>
-                  <dt className='inline-flex items-center gap-2 text-base leading-7 text-slate-500'>
-                    <TypeIcon className='h-6 w-6 text-slate-500' />
-                    Type
-                  </dt>
-                  <dd className='text-base font-semibold tracking-tight text-slate-900'>
-                    {job.type}
-                  </dd>
-                </div>
-                <div className='flex flex-col gap-y-3  pl-6'>
-                  <dt className='inline-flex items-center gap-2 text-base leading-7 text-slate-500'>
-                    <DollarSign className='h-6 w-6 text-slate-500' />
-                    Salary
-                  </dt>
-                  <dd className='text-base font-semibold tracking-tight text-slate-900'>
-                    £{job.salary}
-                  </dd>
-                </div>
-              </dl>
-            </div>
-          </div>
+          <ul
+            role="list"
+            className="flex flex-col divide-y divide-zinc-800 border-zinc-800 border-t lg:border-t-0 border-b text-base tracking-tight text-white w-full">
+            <li className="inline-flex items-center justify-between w-full pb-2">
+              Apply before <span>Sept 31, 2023</span>
+            </li>
+            <li className="inline-flex items-center justify-between w-full py-2">
+              Job posted on <span>Sept 01, 2023</span>
+            </li>
+            <li className="inline-flex items-center justify-between w-full py-2">
+              Job type <span>Full time</span>
+            </li>
+            <li className="inline-flex items-center justify-between w-full py-2">
+              Salary <span>$80k - $125k</span>
+            </li>
+          </ul>
         </div>
-        <div className='mx-auto max-w-7xl px-16 py-12 md:px-40'>
-          <div className=''>
-            <main>
-              <section>
-                <h2 className='text-2xl font-semibold tracking-tight text-slate-900'>
-                  Job Description
-                </h2>
-                <Markdown>{job.description}</Markdown>
-              </section>
 
-              <section className='mt-2'>
-                <h2 className='text-2xl font-semibold tracking-tight text-slate-900'>
-                  Company Description
-                </h2>
-
-                <Markdown>{job.company_description}</Markdown>
-                <p>
-                  Apply now to join the team at{' '}
-                  <Link
-                    className='underline'
-                    href={job.company_website}
-                    target='_blank'
-                  >
-                    {job.company_name}
-                  </Link>
-                </p>
-              </section>
-            </main>
-          </div>
-          <div className='py-6'>
-            <Button asChild>
-              <Link
-                href={job.apply_link ?? ''}
-                target='_blank'
-                className='inline-flex w-full items-center rounded-full  px-5 py-3 text-sm leading-4 text-white duration-200 hover:bg-purple-50 hover:text-purple-500 focus:outline-none focus:ring-0 focus:ring-purple-500 focus:ring-offset-2 md:w-auto md:focus:ring-2'
-              >
-                Apply now
-              </Link>
-            </Button>
-          </div>
+        <p
+          className="text-base uppercase md:text-3xl mt-32 lg:text-6xl font-display tracking-tight text-white col-span-full">
+          Motion Graphcis
+        </p>
+      </div>
+    </div>
+    <div className="border-t border-zinc-800 pt-2">
+      <div
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-0">
+        <p className="text-white text-base tracking-wide font-display uppercase">
+          Description
+        </p>
+        <p className="text-base tracking-tight text-white">
+          Procreate is actively on the lookout for a talented motion designer to
+          become an integral part of their creative team. In this exciting role,
+          you'll be at the forefront of transforming static visuals into
+          captivating, dynamic animations.
+        </p>
+      </div>
+    </div>
+    <div className="border-t border-zinc-800 pt-2 mt-32">
+      <div
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-0">
+        <p className="text-white text-base tracking-wide font-display uppercase">
+          Responsabilities
+        </p>
+        <ul
+          role="list"
+          className="text-base tracking-tight text-white list-disc col-span-2">
+          <li>
+            Animation Creation: Develop captivating animations that enhance
+            Procreate's projects, products, and promotional materials.
+          </li>
+          <li>
+            Conceptualization: Brainstorm and ideate animation concepts that
+            align with Procreate's brand identity and messaging.
+          </li>
+          <li>
+            Collaboration: Work closely with the design and marketing teams to
+            ensure animations are in sync with Procreate's overall creative
+            direction.
+          </li>
+          <li>
+            Visual Storytelling: Use motion design to tell engaging visual
+            stories that resonate with Procreate's diverse user base.
+          </li>
+          <li>
+            User Engagement: Optimize user engagement through animations,
+            finding innovative ways to capture and retain the attention of
+            Procreate's online community.
+          </li>
+          <li>
+            Brand Consistency: Maintain brand consistency across all animation
+            work, ensuring it aligns with Procreate's visual guidelines.
+          </li>
+          <li>
+            Technical Expertise: Utilize industry-standard software and tools to
+            create high-quality animations efficiently.
+          </li>
+          <li>
+            Research and Innovation: Stay up-to-date with industry trends and
+            incorporate innovative techniques into animation projects.
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div className="border-t border-zinc-800 pt-2 mt-32">
+      <div
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-0">
+        <p className="text-white text-base tracking-wide font-display uppercase">
+          Who you are...
+        </p>
+        <ul
+          role="list"
+          className="text-base tracking-tight text-white list-disc col-span-2">
+          <li>
+            Creative Visionary: You possess a keen eye for design and an innate
+            ability to transform static visuals into captivating animations.
+          </li>
+          <li>
+            Motion Design Expert: You are a skilled motion designer with a deep
+            understanding of animation techniques and software tools.
+          </li>
+          <li>
+            Collaborative Team Player: You excel at working collaboratively with
+            design and marketing teams to bring creative visions to life.
+          </li>
+          <li>
+            Storytelling Enthusiast: You are passionate about using motion
+            design to tell compelling visual stories that resonate with diverse
+            audiences.
+          </li>
+          <li>
+            User Engagement Specialist: You have a knack for optimizing user
+            engagement through innovative animations that capture and retain
+            attention.
+          </li>
+          <li>
+            Brand Advocate: You are committed to maintaining brand consistency
+            across all animations, ensuring they align with Procreate's visual
+            guidelines.
+          </li>
+          <li>
+            Technical Guru: You are proficient in using industry-standard
+            software and tools to create high-quality animations efficiently.
+          </li>
+          <li>
+            Innovator: You stay up-to-date with industry trends and are eager to
+            incorporate innovative techniques into your animation projects.
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div className="border-t border-zinc-800 pt-2 mt-32">
+      <div
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-0">
+        <p className="text-white text-base tracking-wide font-display uppercase">
+          Nice-To-Haves
+        </p>
+        <ul
+          role="list"
+          className="text-base tracking-tight text-white list-disc col-span-2">
+          <li>
+            3D Animation Skills: Proficiency in 3D animation software and the
+            ability to create stunning 3D animations.
+          </li>
+          <li>
+            Scripting and Coding Knowledge: Familiarity with scripting and
+            coding languages for enhanced animation control.
+          </li>
+          <li>
+            UI/UX Design Experience: Understanding of user interface and user
+            experience design principles to create animations that enhance
+            usability.
+          </li>
+          <li>
+            VR/AR Animation: Experience in creating animations for virtual
+            reality (VR) or augmented reality (AR) applications.
+          </li>
+          <li>
+            Video Editing Skills: Proficiency in video editing software to
+            enhance video content with animations.
+          </li>
+          <li>
+            Storyboarding Abilities: Capability to create storyboards to plan
+            and visualize animation sequences.
+          </li>
+          <li>
+            Illustration Skills: Proficient illustration skills to complement
+            animation projects with original artwork.
+          </li>
+          <li>
+            Project Management: Experience in managing animation projects from
+            concept to completion, including timelines and resources.
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div className="border-t border-zinc-800 pt-2 mt-32">
+      <div
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-0">
+        <p className="text-white text-base tracking-wide font-display uppercase">
+          Perks and benefits
+        </p>
+        <div
+          className="flex flex-col gap-2 text-base tracking-tight text-white col-span-2">
+          <p>Full Healthcare</p>
+          <p>Unlimited Vacation</p><p>Skill Development</p><p>Team Summits</p>
+          <p>Remote Working</p>
+          <p>Commuter Benefits</p>
+          <p>We give back.</p>
         </div>
-      </section>
+      </div>
+    </div>
+  </div>
+</section>
+
     </div>
   );
 }

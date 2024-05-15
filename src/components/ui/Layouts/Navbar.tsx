@@ -44,47 +44,54 @@ import Image from 'next/image';
 export default function Navbar() {
   return (
     <div className='flex w-full flex-col'>
-      <header className='sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-20 '>
-        <nav className='hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:justify-between md:gap-5 md:text-sm lg:gap-6 '>
-          <Link
-            href='/'
-            className='flex items-center gap-2 text-lg font-semibold md:text-base'
+   <section>
+  <div className="relative w-full mx-auto 2xl:max-w-7xl">
+    <div className="md:px-12 mt-8 px-8">
+      <div
+        x-data="{ open: false }"
+        className="relative flex flex-col w-full mx-auto md:items-center md:justify-between md:flex-row border-t border-zinc-800 pt-2">
+        <div
+          className="flex flex-row items-center justify-between text-white lg:justify-start uppercase text-xs font-display">
+          <a href="/"> Carriera</a>
+          <button
+            className="inline-flex items-center justify-center p-2 text-white hover:text-blue-400 focus:outline-none focus:text-white md:hidden"
+            ><svg
+              className="w-6 h-6"
+              stroke="currentColor"
+              fill="none"
+              viewBox="0 0 24 24"
+              ><path
+                className="inline-flex"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"></path><path
+                className="hidden"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"></path></svg
+            ></button
           >
-            <Image
-              src={'/logo.webp'}
-              className='h-6 w-6 rounded-full'
-              alt='Logo image'
-              width={100}
-              height={100}
-            />
-            <span className='sr-only'>Acme Inc</span>
-          </Link>
-        </nav>
-
-        <Button asChild variant='outline' className='shrink-0 md:hidden'>
-          <Link href='/'>
-            <Image
-              src={'/logo.webp'}
-              className='h-6 w-6 rounded-full'
-              alt='Logo image'
-              width={100}
-              height={100}
-            />
-
-            <span className='sr-only'>Logo</span>
-          </Link>
-        </Button>
-
-        <div className='flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4'>
-          <form className='ml-auto flex-1 sm:flex-initial'>
-            <div className='relative'></div>
-          </form>
-
-          <Button variant='secondary' className='rounded-full'>
-            <Link href='/post-job'>Post a Job</Link>
-          </Button>
         </div>
-      </header>
+        <nav
+          className="flex-col items-center flex-grow hidden md:pb-0 md:flex md:justify-end md:flex-row text-xs gap-4 font-display uppercase tracking-wide text-white">
+          <a className="hover:text-zinc-500 lg:ml-auto duration-200" href="/"
+            >Overview</a
+          ><a
+            className="hover:text-zinc-500 duration-200"
+            href="/styleguide">Styleguide</a
+          ><a
+            href="https://lexingtonthemes.lemonsqueezy.com/checkout/buy/2c490f1d-6e5c-4690-9ade-038b802e07a0"
+            className="hover:text-zinc-500">
+            Buy Carriera</a
+          >
+        </nav>
+      </div>
+    </div>
+  </div>
+</section>
+
     </div>
   );
 }

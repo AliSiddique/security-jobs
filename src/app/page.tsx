@@ -1,5 +1,7 @@
+import FeaturedJobs from '@/components/FeaturedJobs';
 import Jobs from '@/components/Jobs';
 import JobsList from '@/components/JobsList';
+import CTA from '@/components/ui/CTA';
 import Hero from '@/components/ui/Hero';
 import React from 'react';
 
@@ -80,7 +82,9 @@ export default function page({}: Props) {
   return (
     <div className='0'>
       <Hero />
-      <JobsList />
+      <CTA />
+      <FeaturedJobs />
+      {/* <JobsList /> */}
     </div>
   );
 }
